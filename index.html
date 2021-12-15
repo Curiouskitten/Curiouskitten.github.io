@@ -247,10 +247,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2021-12-13 00:02:57 / 修改时间：00:19:06" itemprop="dateCreated datePublished" datetime="2021-12-13T00:02:57+08:00">2021-12-13</time>
+              <time title="创建时间：2021-12-13 00:02:57" itemprop="dateCreated datePublished" datetime="2021-12-13T00:02:57+08:00">2021-12-13</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-12-16 01:56:02" itemprop="dateModified" datetime="2021-12-16T01:56:02+08:00">2021-12-16</time>
+              </span>
 
           
 
@@ -263,10 +269,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>服务器上环境搭建<br>1.jmeter 版本：apache-jmeter-5.2.1<br>2.插件：serverAgent-2.2.3<br>默认端口：4444<br>重新分配端口：./startAgent.sh –tcp-port  3307 –udp-port 3308 –sysinfo<br>3.本地写好步骤<br>4.使用filezilla将写好的脚本上传至服务器（注意ip和端口使用内网ip+端口，注意区分管理系统后台还是小程序后台，测试IP：172.19.40.211;端口：8082（管理系统后台）；8081（小程序后台））<br>5.执行脚本：jmeter -n -t tuangou_test02.jmx -l test004.jtl -e -o tuangoutestreport<br>6.将 tuangoutestreport下载至本机使用html打开<br>7.mysql数据库查询最大连接数：show variables like ‘max_connections’<br>8.修改mysql数据库最大连接数：set global max_connections = 151;<br>9.服务器上查看运行中的端口号：netstat -ntlp<br>10.运行serverAgent：./startAgent.sh 或者 nohup ./startAgent.sh &amp; ，把Agent服务放到后台并且不挂起。<br>11.使配置文件生效:source profile<br>12.jtl文件的查看方式，gui界面下，使用查看结果树，聚合报告<br>13.从数据库中导出用户数据<br>14.使用插件PerfMon Metrics Collector进行服务器资源监控，在进行非gui执行之前需要配置输出的file，注意不能与最终输出的测试结果jtl文件相同，可以是csv也可以是jtl文件</p>
-<p>防火墙相关操作<br>1 、防火墙关闭 -ping 得通<br>firewall-cmd –add-port=4444/tcp –permanent ## 永久添加 4444 端⼝<br>firewall-cmd –list-ports ## 列出开放的端⼝<br>systemctl stop firewalld ## 关闭防火墙<br>systemctl start firewalld ## 开启防火墙<br>systemctl status firewalld ## 查看防火墙状态<br>systemctl restart firewalld ## 重启防火墙</p>
-<p>netstat -tunlp##查看端口占用</p>
-
+          <p>工作中曾接触和使用到的压测方式</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/12/13/JMeter%E9%9D%9Egui%E6%93%8D%E4%BD%9C%E6%B5%81%E7%A8%8B/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
