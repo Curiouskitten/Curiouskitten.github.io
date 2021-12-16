@@ -30,7 +30,7 @@
 <meta property="og:description" content="总结的python基础语法，必须熟记和使用(持续完善)">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-12-15T17:22:20.000Z">
-<meta property="article:modified_time" content="2021-12-15T18:49:28.508Z">
+<meta property="article:modified_time" content="2021-12-16T17:28:43.983Z">
 <meta property="article:author" content="柒仔">
 <meta property="article:tag" content="python学习">
 <meta name="twitter:card" content="summary">
@@ -190,10 +190,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2021-12-16 01:22:20 / 修改时间：02:49:28" itemprop="dateCreated datePublished" datetime="2021-12-16T01:22:20+08:00">2021-12-16</time>
+              <time title="创建时间：2021-12-16 01:22:20" itemprop="dateCreated datePublished" datetime="2021-12-16T01:22:20+08:00">2021-12-16</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-12-17 01:28:43" itemprop="dateModified" datetime="2021-12-17T01:28:43+08:00">2021-12-17</time>
+              </span>
 
           
 
@@ -209,804 +215,261 @@
         <p>总结的python基础语法，必须熟记和使用<br>(持续完善)</p>
 <span id="more"></span>
 <h2 id="字符串-string"><a href="#字符串-string" class="headerlink" title="字符串 string"></a>字符串 string</h2><p>赋值使用‘ ’or“ ”圈住内容</p>
-<pre><code class="bash">$ s = &#39;hello world python&#39;
-打印字符串s的第一个字符
-``` bash
-$ print(s[0])
-打印字符串s倒数第6个字符
-``` bash
-$ print(s[-6])
-字符串的切片:取字符串s第1至第12个字符，每两个输出一个字符，()内区间，左闭右开
-``` bash
-$ print(s[0:12:2])
-attention:input()输出的数据类型默认为字符串
-
-### 字符串的格式化输出1:
-%s:字符串 ---接受任何数据类型
-%d:整数   ---仅支持数字
-%f:浮点数 ---仅支持数字
-%的作用是占坑，( )做格式化输出
-``` bash
-print(
-    &#39;&#39;&#39;=====个人信息=====
-    姓名：%s
-    性别：%s
-    年龄：%d
-    身高：%f
-    &#39;&#39;&#39;%(&#39;小七&#39;,&#39;女&#39;,18,160.5)
-)
-=====个人信息=====
-    姓名：小七
-    性别：女
-    年龄：18
-    身高：160.500000
-
-### 字符串的格式化输出2:.format 有序和无序
-&#123;&#125;占坑,字符串.format-----&gt;相对来说使用的比较频繁，例：
-``` bash
-print(&#39;&#39;&#39;
-=====个人信息=====
-姓名：&#123;&#125;
-性别：&#123;&#125;
-年龄：&#123;&#125;
-身高：&#123;&#125;
-&#39;&#39;&#39;.format(&#39;七仔&#39;,&#39;女&#39;,20,165.3)
-      )
-=====个人信息=====
-姓名：七仔
-性别：女
-年龄：20
-身高：165.3
-
-attention: 
-1.&#123;&#125;跟数据的个数最好一致，如果不一致起码&#123;&#125;要比值的数量少；
-2.()里面的值也是有索引的，也是从0开始，我们可以在&#123;&#125;指定取值的索引
-3.可以在有些&#123;&#125;给定索引，有些&#123;&#125;不给定索引----&gt;绝对不行！！！要给就全部给，不给就全部都不给
-
-### python字符串的常用方法
-find()函数：返回-1表示未找到子字符串，如果找到了就返回对应字符的 索引或字符串第一个字符的索引
-子字符串包含了单个字符，或者是多个字符
-
-``` bash
-s = &#39;learn python in lemon&#39;
-print(s.find(&#39;n&#39;))#返回找到的字符串的索引值&gt;&gt;&gt;4
-print(s.find(&#39;python&#39;))#返回找到的字符串的第一个索引值&gt;&gt;&gt;6
-print(s.find(&#39;k&#39;))#如果没找到，返回-1&gt;&gt;&gt;-1
-print(s.find(&#39;o&#39;,1))#寻找的目标子字符串：一个字符串中存在多个相同的字符，此处寻找第一个o
-print(s.find(&#39;o&#39;,11))#寻找的目标子字符串：此处寻找第二个o
-
-isdigit()函数：如果只包含数字，就返回True，否则返回False
-
-``` bash
-print(&#39;111&#39;.isdigit())#&gt;&gt;&gt;True
-print(&#39;s&#39;.isdigit())#&gt;&gt;&gt;False
-
-replace（）函数：指定替换内容以及被替换字符串，并且可以指定替换次数
-
-``` bash
-s[0] = &#39;k&#39;
-TypeError:&#39;str&#39;,object does not support item assignment 不能根据索引重新指派
-print(s[0])#&gt;&gt;&gt;l
-new_s = s.replace(&#39;n&#39;,&#39;k&#39;)
-print(new_s)#&gt;&gt;&gt;leark pythok ik lemok
-renew_s = s.replace(&#39;n&#39;,&#39;k&#39;,1)#数字表示替换的次数，当需要替换的字符串有多个，不填写数字则默认全部替换，填写数字则进行对应次数替换
-print(renew_s)#&gt;&gt;&gt;leark python in lemon
-
-split()函数：根据指定字符对字符串进行切割,可以指定切割的次数，默认是全部切割
-
-``` bash
-t = &#39;learn python in lemon&#39;
-print(t.split(&#39; &#39;,2)) #返回一个列表，列表里面的元素都是字符串,attention:这里指定空格为切割符；结果：[&#39;learn&#39;, &#39;python&#39;, &#39;in lemon&#39;]
-print(t.split(&#39;l&#39;))#结果：[&#39;&#39;, &#39;earn python in &#39;, &#39;emon&#39;]，这里被用作切割符的字符串结果中不展示，第一个返回是个空字符串
-
-
-strip()函数：去掉头或尾指定的字符，返回一个新的字符串
-
-``` bash
-a = &#39;****learn python in lemon\n&#39;#\n-python中的换行符
-print(a)
-a_2 = a.strip(&#39;*&#39;)
-print(a_2)#&gt;&gt;&gt;learn python in lemon\n
-a_3 = a_2.strip(&#39;\n&#39;)
-print(a_3)#&gt;&gt;&gt;learn python in lemon
-
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ s = <span class="string">&#x27;hello world python&#x27;</span></span><br></pre></td></tr></table></figure>
 
-upper()函数：字符串字母转成大写
-lower()函数：字符串的字母转成小写
-swapcase()函数：字符串的字母大小写互换
-
-``` bash
-b = &#39;learn python in lemon&#39;
-print(b.upper())#&gt;&gt;&gt;LEARN PYTHON IN LEMON
-print(b.upper().lower())#&gt;&gt;&gt;learn python in lemon
-常用于不区分大小写限制
-print(b.swapcase())#&gt;&gt;&gt;LEARN PYTHON IN LEMON
-
-
-## 数据类型_列表_list
-python的数据类型之列表
-列表的定义：
-关键字：list（列表）
-使用最频繁的数据类型，列表可以完成大多数集合类的数据结构实现
-它支持字符，数字，字符串甚至包含列表（即嵌套）
-列表用[]标识
-有序数据
-
-### 1.空列表
-t = []
-print(type(t))#&gt;&gt;&gt;&lt;class &#39;list&#39;&gt;
-print(len(t))#&gt;&gt;&gt;0
-
-### 2.列表里面的数据用逗号隔开，数据可以是任意数据类型
-``` bash
-t = [1,0.03,False,True,&#39;hello&#39;,(1,2,&#39;python&#39;),[1,0.5,False]]
-print(type(t))#&gt;&gt;&gt;&lt;class &#39;list&#39;&gt;
-print(len(t))#&gt;&gt;&gt;7
-print(t[2])#&gt;&gt;&gt;False
-print(t[5][2][2])#&gt;&gt;&gt;t
-print(t[-1][-1])#&gt;&gt;&gt;False
-
-### 3.列表的操作：增删改查
-列表的特性：有序可变
-有序：说明有索引，索引也是从0/-1开始，也分正序和反序，索引规则同字符串
-可变：说明列表可以做删 增 改
-切片：同字符串切片规则，列表明[start:end:step]
-#### 取值偶数位的元素
-``` bash
-print(t[0::2])#取到的还是列表&gt;&gt;&gt;[1, False, &#39;hello&#39;, [1, 0.5, False]]
-
-#### 列表进行倒叙输出
-print(t[::-1])#&gt;&gt;&gt;[[1, 0.5, False], (1, 2, &#39;python&#39;), &#39;hello&#39;, True, False, 0.03, 1]
-
-attention：
-列表与元祖的不同之处
-1.元祖不可变，列表可变
-2.元祖如果只有一个元素要记得加逗号，列表无这个操作
-3.元祖 tuple() 列表 list[]
-
-列表与元祖的相同之处：
-1.有序 有索引
-2.可以根据索引取值
-3.切片的方法方式都是一样的
-
-
-#### 3.1：增加元素
-``` bash
-t.append(&#39;test&#39;)
-print(t)#&gt;&gt;&gt;[1, 0.03, False, True, &#39;hello&#39;, (1, 2, &#39;python&#39;), [1, 0.5, False], &#39;test&#39;]
-t.append(&#39;测试&#39;)
-print(t)#&gt;&gt;&gt;[1, 0.03, False, True, &#39;hello&#39;, (1, 2, &#39;python&#39;), [1, 0.5, False], &#39;test&#39;, &#39;测试&#39;]
-
-综上所述.append()默认追加元素到列表的末尾，每次只能添加一个元素
-
-t.insert(1,&#39;insert&#39;)#可以插入到指定索引位置，原有的保留并往后挪一位&gt;&gt;&gt;[1, &#39;insert&#39;, 0.03, False, True, &#39;hello&#39;, (1, 2, &#39;python&#39;), [1, 0.5, False], &#39;test&#39;, &#39;测试&#39;]
-t.extend([1,2,3,4])#拓展列表的操作，合并列表，注意是合并而不是将列表作为一个值嵌套进列表中&gt;&gt;&gt;[1, &#39;insert&#39;, 0.03, False, True, &#39;hello&#39;, (1, 2, &#39;python&#39;), [1, 0.5, False], &#39;test&#39;, &#39;测试&#39;, 1, 2, 3, 4]
-s = [5,6,7]
-t = t+s
-print(t)#&gt;&gt;&gt;[1, &#39;insert&#39;, 0.03, False, True, &#39;hello&#39;, (1, 2, &#39;python&#39;), [1, 0.5, False], &#39;test&#39;, &#39;测试&#39;, 1, 2, 3, 4, 5, 6, 7]
-
-#### 3.2：删除元素
-t.pop()#默认删除最后一个元素
-t.pop(i)#删除列表中指定位置的元素
-t.pop(0)#删除列表中第一个值
-t.clear()#移除列表里面的所有数据
-
-#### 3.3：修改元素，修改原有的值，赋值的方式 列表名[索引值]=新值
-t2[2] = False
-print(t2)#&gt;&gt;&gt;[1, 0.02, False, &#39;hello&#39;, (1, 2, 3, &#39;python&#39;), [1, 0.02, False, [&#39;hello&#39;]]]
-
-#### 3.4：查：根据索引值取值，切片
-.index()
-.count()
-``` bash
-print(t2.index(1))#括号内的值为列表中的元素，作用是确定元素所在的搜索位置&gt;&gt;&gt;0
-print(t2.count(0.02))#统计列表中0.02这个元素的数量&gt;&gt;&gt;1
-
-百分百需要记住的函数：.append();.extend();insert()；.pop();
-
-### 3.数据类型_元祖_tuple
-元祖的定义：
-特性：关键字 tuple()
-它支持字符，数字，字符串甚至可以包含元祖（即嵌套）
-元祖用（）标识
-有序数据
-t = ()#空元祖
-``` bash
-print(type(t))#&gt;&gt;&gt;&lt;class &#39;tuple&#39;&gt;
-print(len)#&gt;&gt;&gt;0
-
-t2 = (1,)#只有一个数据的时候注意取法
-print(type(t2))#&gt;&gt;&gt;&lt;class &#39;tuple&#39;&gt;
-print(t2)#&gt;&gt;&gt;0
-
-#### 索引，索引取值，切片同字符串的方法
-修改元祖的值：不可修改，元祖属于不可变数据
-嵌套元祖，例：
-t3 = (1,0.03,True,&#39;false&#39;,(4,5,6,&#39;python&#39;))
-print(type(t3))#&gt;&gt;&gt;&lt;class &#39;tuple&#39;&gt;
-print(len(t3))#&gt;&gt;&gt;5
-
-#### 元祖的特性：有序不可变
-有序：说明有索引，索引也是从0/-1开始，也分正序和反序
-不可变：说明元祖一旦确定，那么值就不能做变更；删 增 改都不支持
-print(t3[0])#&gt;&gt;&gt;1
-print(t3[-1])#&gt;&gt;&gt;(4, 5, 6, &#39;python&#39;)
-
-元祖里面的嵌套取值：根据索引一层一层的去定位
-print(t3[-1][-1][0])#&gt;&gt;&gt;p
-
-#### 元祖的切片：元祖名[start:end:step]
-取值偶数位的元素
-``` bash
-print(t3[0::2])#取到的还是元祖&gt;&gt;&gt;(1, True, (4, 5, 6, &#39;python&#39;))
-
-#### 元祖进行倒叙输出
-``` bash
-print(t3[::-1])#&gt;&gt;&gt;((4, 5, 6, &#39;python&#39;), &#39;false&#39;, True, 0.03, 1)
-
-#### 常用方法：
-index(x):获取x的索引值，获取元祖里面某个元素的索引值
-count(x):统计x的个数
-print(t3.index(0.03))#&gt;&gt;&gt;1
-print(t3.count(1))#此处输出为2，why？因为存在布尔值True，布尔值中True == 1；false == 0；
-
-### 4.数据类型_字典_dict
-字典的定义：
-关键字：dictionary（dict），除列表以外python之中最灵活的内置数据结构类型字典是无序的对象集合
-标识：&#123;&#125;
-无序数据，是除了列表之外，python中使用最多的数据类型
-存储数据的形式： key:value
-key:是唯一的且不可边变的数据（int float tuple boolen，str）
-value:任何数据类型都支持
-
-question1：如果key重复的话，会如何？
-result：后面的值会把前面的值覆盖掉
-
-#### 4.1空字典
-d = &#123;&#125;
-print(type(d))#&gt;&gt;&gt;&lt;class &#39;dict&#39;&gt;
-
-#### 4.2:定义一个字典 key:value
-d1 = &#123;1:&#39;no 1&#39;,
-     0.02:&#39;零花钱&#39;,
-     True:&#39;result&#39;,
-     &#39;name&#39;:666,
-     (1,3):&#39;tuple&#39;,
-      &#39;list&#39;:[2,3,4]
-      &#125;
-print(d1)#&gt;&gt;&gt;&#123;1: &#39;result&#39;, 0.02: &#39;零花钱&#39;, &#39;name&#39;: 666, (1, 3): &#39;tuple&#39;, &#39;list&#39;: [2, 3, 4]&#125;
-
-#### 4.3：无序
-``` bash
-print(d1)#每一次执行输出的时候都会变化顺序,随机的不好复现
-
-#### 4.4：取值，根据key取值，字典名[key]
-``` bash
-print(d1[True])#&gt;&gt;&gt;result
-print(d1[&#39;list&#39;][-1])#&gt;&gt;&gt;4
-
-#### 4.5：key必须是唯一的不重复的，如果出现重复的，则后面的值会把前面的值覆盖掉
-字典也是用来存储数据的，那么何时使用字典？
-当值需要成对存储的时候，可以理解为数据库
-
-#### 4.6：字典的操作，增，删，改，查询
-查：根据key来查询
-字典嵌套字典
-字典嵌套元祖
-字典嵌套列表
-d2=&#123;&#39;class&#39;:&#39;python15&#39;,
-    &#39;teacher&#39;:[&#39;小明&#39;,&#39;小红&#39;,&#39;小刚&#39;,&#39;小白&#39;],
-    &#39;vip&#39;:&#123;&#39;A&#39;:&#39;小红&#39;,&#39;B&#39;:&#39;小明&#39;,&#39;c&#39;:&#39;小白&#39;&#125;,
-    &#39;score&#39;:(88,99,100),
-    &#39;test&#39;:2334,
-    &#39;test02&#39;:&#39;hello&#39;
-   &#125;
-取小明的值：方法一层一层的取定位，根据key
-print(d2[&#39;vip&#39;][&#39;B&#39;])#&gt;&gt;&gt;小明
-取最后一个老师的名字:
-print(d2[&#39;teacher&#39;][-1])#&gt;&gt;&gt;小白
-取倒数第二的分数
-print(d2[&#39;score&#39;][-2])#&gt;&gt;&gt;99
-
-增
-d[不存在的key] = 新值
-
-改
-d[已有的key] = 新值
-d2[&#39;vip&#39;][&#39;A&#39;] = &#39;小刚&#39;
-print(d2[&#39;vip&#39;][&#39;A&#39;])#&gt;&gt;&gt;小刚
-print(d2)#&#123;&#39;class&#39;: &#39;python15&#39;, &#39;teacher&#39;: [&#39;小明&#39;, &#39;小红&#39;, &#39;小刚&#39;, &#39;小白&#39;], &#39;vip&#39;: &#123;&#39;A&#39;: &#39;小刚&#39;, &#39;B&#39;: &#39;小明&#39;, &#39;c&#39;: &#39;小白&#39;&#125;, &#39;score&#39;: (88, 99, 100), &#39;test&#39;: 2334, &#39;test02&#39;: &#39;hello&#39;&#125;
-
-删除
-d.pop(&#39;vip&#39;)#根据key删除--删除键值对
-d.clear()#清空字典
-d.popitem()#随机删除某个键值对
-
-其他用法
-items():以列表返回可遍历的（键，值）元组数组
-print(d2.items())
-#&gt;&gt;&gt;dict_items([(&#39;class&#39;, &#39;python15&#39;), (&#39;teacher&#39;, [&#39;小明&#39;, &#39;小红&#39;, &#39;小刚&#39;, &#39;小白&#39;]), (&#39;vip&#39;, &#123;&#39;A&#39;: &#39;小刚&#39;, &#39;B&#39;: &#39;小明&#39;, &#39;c&#39;: &#39;小白&#39;&#125;), (&#39;score&#39;, (88, 99, 100)), (&#39;test&#39;, 2334), (&#39;test02&#39;, &#39;hello&#39;)])
-
-#### keys():以列表返回一个字典所有的键
-print(d2.keys())
-#&gt;&gt;&gt;dict_keys([&#39;class&#39;, &#39;teacher&#39;, &#39;vip&#39;, &#39;score&#39;, &#39;test&#39;, &#39;test02&#39;])
-
-#### values()：以列表返回一个字典所有的值
-print(d2.values())
-#&gt;&gt;&gt;dict_values([&#39;python15&#39;, [&#39;小明&#39;, &#39;小红&#39;, &#39;小刚&#39;, &#39;小白&#39;], &#123;&#39;A&#39;: &#39;小刚&#39;, &#39;B&#39;: &#39;小明&#39;, &#39;c&#39;: &#39;小白&#39;&#125;, (88, 99, 100), 2334, &#39;hello&#39;])
-
-#### pop(key)：删除指定key的字典值，会返回被删除的这个值
-print(d2.pop(&#39;test02&#39;))#&gt;&gt;&gt;hello
-
-#### del 字典名[key]:删除指定key的字典值
-del d2[&#39;teacher&#39;]
-print(d2)
-&gt;&gt;&gt;&#123;&#39;class&#39;: &#39;python15&#39;, &#39;vip&#39;: &#123;&#39;A&#39;: &#39;小刚&#39;, &#39;B&#39;: &#39;小明&#39;, &#39;c&#39;: &#39;小白&#39;&#125;, &#39;score&#39;: (88, 99, 100), &#39;test&#39;: 2334&#125;
-
-### 5.python运算符
-python语言支持以下类型的运算符：
-算数运算符--must
-比较（关系）运算符---must
-赋值运算符---must
-逻辑运算符---must
-成员运算符---must
-位运算符
-身份运算符
-运算符优先级
-
-#### 5.1：算术运算符：+，-，*, /, %
-a = 10
-b = 5
-print(a+b)#&gt;&gt;&gt;15
-print(a*b)#&gt;&gt;&gt;50
-
-+ 字符串的拼接，列表的拼接
-乘法：对字符串列表 元组 要输出多次
-s_1=&#39;hello&#39;
-s_2=[1,2,3]
-print(s_1*3)#&gt;&gt;&gt; hellohellohello
-print((s_1+&#39; &#39;)*3)#&gt;&gt;&gt; hello hello hello
-print(s_2*2) #&gt;&gt;&gt;[1, 2, 3, 1, 2, 3]
-
-% 模运算 取余运算
-5/4 商1余下1
-print(5%4)#&gt;&gt;&gt;:1
-5/3 商1余2
-print(5%3)#&gt;&gt;&gt;2
-print(5/4)#&gt;&gt;&gt;1.25
-
-作用：判断奇数偶数的
-例：
-x = int(input(&quot;请输入一个整数：&quot;))#一定要定义函数数据类型（格式化# ）
-if x &lt;= 0:
-    print(&quot;请输入大于0的整数！&quot;)
-else:
-    y = x%2
-    if y == 0:
-        print(&quot;您输入的是偶数&quot;)
-    else:
-        print(&quot;您输入的是奇数&quot;)
-
-x%2的值是0 则说明x是偶数
-x%2的值为1 则说明x是奇数
-
-判断数据类型：
-number = int(input(&quot;请输入一个数字：&quot;))
-if type(number) == int:
-    if number == 0:
-        print(&quot;请输入大于0的整数！&quot;)
-    else:
-        result1 = number%2
-        if result1 == 0:
-            print(&quot;您输入的是偶数&quot;)
-        else:
-            print(&quot;您输入的是奇数&quot;)
-else:
-    print(&quot;您输入的不是正整数！&quot;)
------以上代码有个很大的问题，input()输出的值的数据类型为字符串，所以即使输入的是2，2的数据类型不是int，而是str
-
-nub = int(input())
-practise：上述的循环没有有效的判断出数据的类型，尝试判断数字是正数还是负数
-
-比较（关系）运算符：
-6种比较关系：&gt;,&gt;=,&lt;,&lt;=,==,!=
-nub1 = 10
-nub2 = 2
-print(nub1 &gt; nub2)#&gt;&gt;&gt;True
-print(nub1 &gt;= nub2)#&gt;&gt;&gt;True
-print(nub1 == nub2)#&gt;&gt;&gt;False
-print(nub1 != nub2)#&gt;&gt;&gt;True
-print(nub1 &lt; nub2)#&gt;&gt;&gt;False
-print(nub1 &lt;= nub2)#&gt;&gt;&gt;False
-
-python是区分大小写的！
-print(&#39;get&#39; == &#39;Get&#39;)#&gt;&gt;&gt;False
-print(False == 0)#&gt;&gt;&gt;True  0等同于False，1等同于True（主要用于判断语句）
-
-#### 赋值运算符 = += -=
-x=6
-print(x)#&gt;&gt;&gt;6
-y=1
-y+=1#即y=y+1
-print(y)#&gt;&gt;&gt;2
-z=3
-z-=1#即z=z-1&gt;&gt;&gt;2
-print(z)#&gt;&gt;&gt;2
-
-### 6.if判断
-if 判断条件:
-    执行语句....
-else:
-    执行语句....
-
-if 判断语句1:
-    执行语句1....
-elif 判断语句2:
-    执行语句2....
-else:
-    执行语句3....
-
-for example:
-score = 90
-if score &gt;=90:
-    print(&#39;优秀！&#39;)
-elif score &gt;= 80:
-    print(&#39;良好！&#39;)
-elif score &gt;=60:
-    print(&#39;及格&#39;)
-else:
-    print(&#39;不及格&#39;)
-
-#if条件判断语句里面，一定会有if开头，如果是多重判断我们可以引用elif 最后一种默认处理
-#但是else elif都不是必须的，根据业务场景
-#if, elif后面必须加判断条件
-#else后面不能加判断条件
-#利用random函数生成随机整数，从1-9取出来，然后输入一个数字，来猜，如果大于，则打印bigger。小了，则打印less
-random.randint(1,10) # 产生 1 到 10 的一个整数型随机数 
-random.random()         # 产生 0 到 1 之间的随机浮点数
-random.choice(&#39;tomorrow&#39;)  # 从序列中随机选取一个元素
-random.randrange(1,100,2)  # 生成从1到100的间隔为2的随机整数
-
-import random #一定要写这个
-r = random.randint(1,9)
-NUM = int(input(&#39;请输入一个整数：&#39;))
-
-if NUM &gt; r:
-    print(&#39;bigger&#39;)
-elif NUM == r:
-    print(&#39;equal&#39;)
-else:
-    print(&#39;less&#39;)
-print(r)
-
-7.for循环
-#用于遍历一个集合
-#基本形式:
-for 变量 in 集合：
-    执行语句
-
-for 变量 in 集合：
-    执行语句1
-else:
-    执行语句2
-#通常与range()函数一起使用，range()返回一个列表，for…in…遍历这个列表中的元素
-#for example:
-for i in range(10):
-    print(“循环10次”)
-
-for j in range(-1,2):
-    if x &gt; 0:
-        print(“正数:”,x)
-    elif x == 0:
-        print(“零”,o)
-    else:
-        print(“负数”,x)
-else:
-    print(“循环结束”)
-
-8.while循环
-#while循环：用于循环执行程序，在某个条件下，循环执行某段程序，以处理需要重复处理的相同任务。
-#基本形式：
-while 判断条件：
-执行语句....
-
-#判断条件：可以是比较，逻辑，成员，True，False 0，1，非空数据，空数据
-#最终要的依据:判断条件的结果，到底是True 还是False
-#执行逻辑，先判断条件，再根据条件的值，决定是否要执行下面的代码块
-#执行完毕 会再次判断while后面的条件，决定是否要执行下面的代码块
-True 死循环
-False 不会执行while下面的代码块
-0 就相当于False，所以不会执行while下面的代码
-1 相当于True，会进入死循环
-[]/&#123;&#125;/()/&#39;&#39; 不会执行while下面的代码#即为False
-[1]/(1,2)/&#123;&quot;name&quot;:&quot;python&quot;&#125;  死循环#即为True
-什么也不填 报错。while后面必须要填写一个条件
-
-综上所述，while后面的条件一直为真，则会陷入死循环；同理，条件一直为False则永远不进入循环体内
-
-#如何防止进入死循环以及无法进入while循环呢
-解决方案：
-1.while后面的条件不为恒定值：让while后面的条件随着循环执行的次数变化而变化
-    1)引入变量，并在内部实现变量的递增或递减
-    2)变量与while后面的条件相结合
-
-2.while后面的条件为恒定值
-    1)引入continue 和 break
-    2)添加内部判断条件
-
-9.break&amp;continue 
-
-#practice：
-#我要循环三次
-#变量自减，在恒定true的情况下，在循环的内部添加判断条件，达到可控的循环（避免死循环）
-count=3
-while True:
-    print(&#39;这个是python_while循环条件下的语句&#39;)
-    count -=1#每执行一次都会减1
-    print(count)
-    if count&gt;0:
-        continue#结束本次循环，继续下一次循环
-    else:
-        break#结束循环
-
-10.抛出异常
-知识点：
-#try…except…finally语句
-#raise语句
-#assert语句
-#自定义异常
-#程序调试
-在python3中，BaseException是所有异常的基类，所有的内置异常都是它的派生类。用户自定义的异常也应该继承它。常见内部异常：
-1.    AssertionError&gt;assert语句失败时出发；
-2.    AttributeError&gt;属性引用和属性赋值异常
-3.    ImportError&gt;导入异常，点那个import语句或from语句无法再模块中找到相应文件名称时触发
-4.    NameError&gt;名称异常，在局部或全局空间中无法找到文件名称时触发
-5.    SyntaxError&gt;语法错误
-6.    SystemError&gt;编译器内部错误
-7.    TypeError&gt;当操作或者函数应用找不到合适的类型时触发
-
-#try…except…
-    try:#尝试读取一个不存在的文件
-        open(“hello.txt”,“r”)
-    except FileNotFoundError:#捕获FileNotFoundError异常
-        print(“文件不存在”)
-    excrpt:#    其他异常情况
-        print(“程序异常”)
-异常处理语也可以嵌套：
-    try:
-        s =“hello”
-        try:
-            print()
-            print()
-        Except TypeError:
-            Print(“字符串不支持减法运算”)
-    except:
-        Print(“异常”)
-#attention：若外层try子句中的代码块引发异常，程序将直接跳转到外层try对应的except子句，而内部的try语句不会被执行。
-    try:
-        执行语句
-    except FileNotFoundError:#捕获指定异常
-        执行语句
-finally:#无论异常是否发生finally子句都会被执行
-    执行语句
-
-
-
-11.文件操作
-#什么是文件？文件是数据的集合和抽象
-文件类型：1.文本文件；2.二进制文件
-文件本质上都是存储在存储器上的二进制数据
-#字符编码：1.ascii码—最先发明的字符编码（一个字符占据一个字节）；2.gb2312:简体中文字符集；3.gbk（对gb2312的优化）；4.unicode：纳入世界上所有符号，但是效率不高；5.utf-8:为了提高unicode效率，现在最常用的编码方式
-
-open()函数
-指定处理模式，设置打开的文件为只读，只写，或可读写状态。
-open(file,mode=’’,buffering=-1,encoding=None,errors=None,newline=None,closed=True,opener=None)
-参数：
-file-&gt;预打开的文件名，若文件不存在，open()将创建文件，如“test.txt”or 指定文件放置的位置“/user/Desktop/test.txt”
-    mode-&gt;文件的打开模式，
-“r”-&gt;以只读的方式打开文件；
-“r+” -&gt;以读写的方式打开文件;
-“w”-&gt;以写入的方式打开文件;删除文件内容，重新写入，若文件不存在则新建文件
-“w+” -&gt;以读写的方式打开文件;删除文件内容，重新写入，若文件不存在则新建文件
-“a” -&gt;;以写入的方式打开文件，在文件末尾追加新的内容，若文件不存在则新建文件
-“a+” -&gt;;以读写的方式打开文件，在文件末尾追加新的内容，若文件不存在则新建文件
-“b” -&gt;;以二进制模式打开文件，可与r，w，a，结合使用
-“U” -&gt;支持所有换行符号。“\r”,”\n”,”\r\n”都表示换行
-
-和mode组合的字符：
-“b”二进制模式，例如：“rb”表示二进制读取
-“t”文本模式（默认），例如：rt一般省略t
-“+”读取写入，例如“r+”表示同时读写
-
-
-1.基本操作：
-创建一个名为test.txt的文本文件，（注意编码方式）文件中写入一下内容
-窗前明月光，疑是地上霜。举头望明月，低头思故乡。
-#打开文件mode = rt,t可以省略
-fb = open(‘test.txt’，‘r’，encoding=‘utf-8’)
-#读取
-content = fb.read()
-print(content)
-#关闭文件
-fb.close()
-
-attention:上面这种操作经常因为忘记关闭文件句柄，造成资源浪费，所以处理文件是往往使用with语句进行上下文管理。
-
-2.with上下文管理
-with open(‘test.txt’，‘r’，encoding= ‘utf-8’)  as fb:
-    content = fb.read()
-    print(content)
-3.逐行读取readline
-从文件中读取一行，如果f.readline()返回一个空的字符串，表示已经达到了文件末尾
-with open(‘test.txt’，‘r’，encoding= ‘utf-8’)  as fb:
-    print(fb.readline())
-readlines&gt;&gt;&gt;以列表形式返回所有行
-with open(‘test.txt’，‘r’，encoding= ‘utf-8’)  as fb:
-    content = fb.readlines()
-    print(content)
-
-迭代:要从文件中读取行，也可以循环遍历文件对象，这是内存高效，快速的，并简化代码。
-with open(‘test.txt’，‘r’，encoding= ‘utf-8’)  as fb:
-    for line in fb:
-        print(line)
-
-4.读二进制文件
-任何文件都可以以二进制读的方式打开
-with open(‘test.txt’，‘rb’)  as fb:
-    content = fb.read()
-    print(content)
-#mode = rb，不需要encoding参数
-
-5.写文本文件_清除写w
-        with open(path,&#39;a&#39;,encoding=&#39;utf-8&#39;) as f:
-            f.write(name + &#39;\n&#39;)
-            f.writelines(text)
-            f.write(&#39;\n\n&#39;)
-w会清楚原文件内容重新写入
-
-6.写文本文件_追加写_a
-7.写文本文件_排他写x：当写入的文件存在则不创建，报错-&gt;&gt;&gt;file exists：‘test.txt’
-8.写二进制文件：wb；这种模式下写入内容为字节数据
-9.文件指针：open函数返回的文件对象使用文件指针来记录当前在文件中的位置
-10.read方法：在读模式下，使用文件对象的read 方法可以读取文件的内容，接受一个整数参数表示读取内容的大小，文本模式下表示字符数量，二进制模式下表示字节大小。
-    with open(‘test.txt’，‘r’，encoding= ‘utf-8’)  as fb:
-        content = fb.read(3)
-&gt;床前明
-
-11.tell方法：返回整数，表示文件指针距离文件开头的字节数
-    with open(‘test.txt’，‘r’，encoding= ‘utf-8’)  as fb:
-        print(fb.tell())#&gt;&gt;&gt;0
-        content = fb.read(3)
-        print(content)
-        print(fb.tell())#&gt;&gt;&gt;9
-12.seek方法：移动文件句柄
-    seek(offset= ;whence=0)
-    offset：偏移指针的字节数
-    whence：表示便宜参考，默认为0
-        0&gt;&gt;&gt;表示偏移参考文件的开头，offset必须是=&gt;0的整数
-        1&gt;&gt;&gt;表示偏移参考当前位置，offset可以是负数
-        2&gt;&gt;&gt;表示偏移参考文件的结尾，offset一般是负数
-
-12.模块(model)&amp;包(packge)&amp;函数(function)
-12.1.模块概念：模块是一个包含python定义和语句的文件，文件名就是模块名后跟文件后缀.py
-（一个文件即一个模块）
-    导入模块1：import 模块名
-    for example:import requests;
-    使用模块中的函数：（在导入模块前提下）
-    res = requests.get(url=,headers=,params=)
-    此方法：当前变量表中，不会直接定义导入的模块的函数名，他只定义了模块名，所以使用函数则是通过模块名访问函数
-    
-    导入模块2：from 模块名 import 函数名
-    For example:from fibo import fib,fib2
-    此方法：并不会把被调模块引入当前的变量表中，而是将函数fib，fib2引入，可直接访问两个函数
-    
-    导入模块3：from 模块名 import *
-    此方法：导入模块中定义的所有名称（函数名，变量，类名）
-    
-    导入模块4：from 模块名 as 新名称
-                from 模块名 import 名称 as 新名称
-
-12.2.包的概念：模块的问题解决了代码过长不便于维护的问题，为避免模块名冲突，python又引入了用目录来组织模块的方法，包
-for example:创建名为my_package的文件夹，将模块my_model.py放入该文件夹下，则可通过import my_package.my_model 来引入，目的：避免程序中不同包下存在不同的模块，避免引入模块时冲突。
-
-
-12.3.函数概念：具备一定功能，可重复使用的语句，用函数名来表示并通过函数名进行调用，每次使用函数可以提供不同的参数作为输入，以实现对不同数据的处理。
-
-12.3.1函数调用的过程：1.调用程序在调用处暂停执行；2.在调用时将实参赋值给函数的形参；3.执行函数体语句；4.函数调用结束给出返回值，程序回到调用前的暂停处继续执行
-def -&gt;&gt;python中定义函数的关键字
-def 函数名(参数列表)：
-    函数体
-    return 返回值列表
-
-12.3.2函数的参数
-    形参：
-      必须参数：定义函数时，调用者必须传递实参给这个形参，他就是必须参数，直接定义在函数名后()中的形参就是必须参数。
-      默认参数：定义函数时，某些形参可能在调用时不用接收实参，这种情况可以定义为默认参数，在函数名后()，以参数名=默认值的形式定义的形参就是必须参数，默认参数必须定义在必须参数的后面
-For example:定义一个函数，它接收两个参数content和times，content是函数需要打印的内容，times是函数打印的次数，若不传递times则默认打印一次。
-    def my_print(content,times=1):  #定义函数
-        for i in range(times):
-            Print(content)
-    my_print(‘happy birthday!’)    #调用，不写入times值
-    &gt;&gt;&gt; happy birthday!
-    my_print(‘happy birthday!’,2)  #调用，指定times值
-    &gt;&gt;&gt; happy birthday!
-         happy birthday!
-
-      不定参数：在定义函数时，不确定在调用时会传递多少个实参，可定义不定参数
-        位置不定参数：在形参前加*号可以定义位置不定参数，通常定义为*args
-            用来接收函数调用时，以位置参数传递过来的超过形参数量的多余的参数
-            不定参数必须定义在默认参数后面
-            for example:
-            def add(x,y,*args):
-                x += y
-                for i in args:
-                    x += i
-                print(x)
-            add(1,2,3,4)
-            &gt;&gt;&gt; 10
-        关键字不定参数：在形参前加**号可以定义关键字不定参，通常定义为**kwargs
-            用来接收函数调用时，以关键字参数传递过来的超过形参的多余的实参
-            for example:
-            def func(a,**kwargs):
-                print(kwargs,type(kwargs))
-            func(a=1,b=2,c=3,d=4)
-            &gt;&gt;&gt;&#123;‘b’=2,’c’= 3,’d’=4&#125;&lt;class’dict’&gt;
-            
-        实参：
-1.    位置参数：调用函数时，传递实参时默认会按照形参的位置一一对应，这种实参传递叫做位置参数
-for example:
-def my_power(x,n):
-    print(x**n)#x的n次幂
-my_power(3,2)
-&gt;&gt;&gt;9
-
-2.    关键字参数：调用函数时，传递实参时以 形参名=实参 的形式传递参数，叫做关键字参数
-for example:
-            调用上方函数：my_power(x=2,n=3)
-            &gt;&gt;&gt;8
-
-            3. *；**在传递实参时的用法
-            *解包：在传递实参的时候，可以通过*对迭代对象(列表)进行解包
-            for example：
-def fun(a,b,*arg):
-        print(a,b,arg)
-ls = [1,2,3,4,5,6]
-fun(*ls)#&gt;&gt;&gt;1 2 (3, 4, 5, 6)
-            **解包：在传递实参时候，可以通过**对字典对象进行解包
-def fun(a,b,**kwargs):
-        print(a,b,kwargs)
-dic = &#123;&#39;a&#39;:1,&#39;b&#39;:2,&#39;c&#39;:3,&#39;d&#39;:4&#125;
-fun(**dic)#&gt;&gt;&gt;1 2 &#123;&#39;c&#39;: 3, &#39;d&#39;: 4&#125;
-
-12.3.3.返回值return
-Python中使用return关键字来退出函数，返回到函数被调用的地方继续往下执行
-函数中可以没有返回值，也就是说函数中可以没有return语句，这时函数返回None
-    for example：
-    def add(x,y,*args):
-        x += y
-        for i in args:
-            x += i
-        return x 
-res = add(1,2)
-print(res)
-&gt;&gt;&gt;3
-
-Lambdah函数:用来定义简单的，可以在一行内表示的函数(用的少)
-语法格式：lambda arg1,arg2,… : expression
-
-变量作用域：局部变量；全局变量
-global关键字：有时候需要在函数内部修改全局变量。使用globals关键字可以在函数内部修改全局变量
-for example：
-    a = 1
-    def fun():
-        global a 
-        a += 1
-    fun()
-    print(a)
-&gt;&gt;&gt;2
+<p>打印字符串s的第一个字符</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">print</span>(s[0])</span><br></pre></td></tr></table></figure>
+<p>打印字符串s倒数第6个字符</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">print</span>(s[-6])</span><br></pre></td></tr></table></figure>
+<p>字符串的切片:取字符串s第1至第12个字符，每两个输出一个字符，()内区间，左闭右开</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">print</span>(s[0:12:2])</span><br></pre></td></tr></table></figure>
+<p>attention:input()输出的数据类型默认为字符串</p>
+<h3 id="字符串的格式化输出1"><a href="#字符串的格式化输出1" class="headerlink" title="字符串的格式化输出1:"></a>字符串的格式化输出1:</h3><p>%s:字符串 —接受任何数据类型<br>%d:整数   —仅支持数字<br>%f:浮点数 —仅支持数字<br>%的作用是占坑，( )做格式化输出</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(</span><br><span class="line">    <span class="string">&#x27;&#x27;</span><span class="string">&#x27;=====个人信息=====</span></span><br><span class="line"><span class="string">    姓名：%s</span></span><br><span class="line"><span class="string">    性别：%s</span></span><br><span class="line"><span class="string">    年龄：%d</span></span><br><span class="line"><span class="string">    身高：%f</span></span><br><span class="line"><span class="string">    &#x27;</span><span class="string">&#x27;&#x27;</span>%(<span class="string">&#x27;小七&#x27;</span>,<span class="string">&#x27;女&#x27;</span>,18,160.5)</span><br><span class="line">)</span><br><span class="line">=====个人信息=====</span><br><span class="line">    姓名：小七</span><br><span class="line">    性别：女</span><br><span class="line">    年龄：18</span><br><span class="line">    身高：160.500000</span><br></pre></td></tr></table></figure>
 
+<h3 id="字符串的格式化输出2-format-有序和无序"><a href="#字符串的格式化输出2-format-有序和无序" class="headerlink" title="字符串的格式化输出2:.format 有序和无序"></a>字符串的格式化输出2:.format 有序和无序</h3><p>{}占坑,字符串.format—–&gt;相对来说使用的比较频繁，例：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;&#x27;</span><span class="string">&#x27;</span></span><br><span class="line"><span class="string">=====个人信息=====</span></span><br><span class="line"><span class="string">姓名：&#123;&#125;</span></span><br><span class="line"><span class="string">性别：&#123;&#125;</span></span><br><span class="line"><span class="string">年龄：&#123;&#125;</span></span><br><span class="line"><span class="string">身高：&#123;&#125;</span></span><br><span class="line"><span class="string">&#x27;</span><span class="string">&#x27;&#x27;</span>.format(<span class="string">&#x27;七仔&#x27;</span>,<span class="string">&#x27;女&#x27;</span>,20,165.3)</span><br><span class="line">      )</span><br><span class="line">=====个人信息=====</span><br><span class="line">姓名：七仔</span><br><span class="line">性别：女</span><br><span class="line">年龄：20</span><br><span class="line">身高：165.3</span><br></pre></td></tr></table></figure>
 
+<p>attention:<br>1.{}跟数据的个数最好一致，如果不一致起码{}要比值的数量少；<br>2.()里面的值也是有索引的，也是从0开始，我们可以在{}指定取值的索引<br>3.可以在有些{}给定索引，有些{}不给定索引—-&gt;绝对不行！！！要给就全部给，不给就全部都不给</p>
+<h3 id="python字符串的常用方法"><a href="#python字符串的常用方法" class="headerlink" title="python字符串的常用方法"></a>python字符串的常用方法</h3><p>find()函数：返回-1表示未找到子字符串，如果找到了就返回对应字符的 索引或字符串第一个字符的索引<br>子字符串包含了单个字符，或者是多个字符</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">s = <span class="string">&#x27;learn python in lemon&#x27;</span></span><br><span class="line"><span class="built_in">print</span>(s.find(<span class="string">&#x27;n&#x27;</span>))<span class="comment">#返回找到的字符串的索引值&gt;&gt;&gt;4</span></span><br><span class="line"><span class="built_in">print</span>(s.find(<span class="string">&#x27;python&#x27;</span>))<span class="comment">#返回找到的字符串的第一个索引值&gt;&gt;&gt;6</span></span><br><span class="line"><span class="built_in">print</span>(s.find(<span class="string">&#x27;k&#x27;</span>))<span class="comment">#如果没找到，返回-1&gt;&gt;&gt;-1</span></span><br><span class="line"><span class="built_in">print</span>(s.find(<span class="string">&#x27;o&#x27;</span>,1))<span class="comment">#寻找的目标子字符串：一个字符串中存在多个相同的字符，此处寻找第一个o</span></span><br><span class="line"><span class="built_in">print</span>(s.find(<span class="string">&#x27;o&#x27;</span>,11))<span class="comment">#寻找的目标子字符串：此处寻找第二个o</span></span><br></pre></td></tr></table></figure>
+
+<p>isdigit()函数：如果只包含数字，就返回True，否则返回False</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;111&#x27;</span>.isdigit())<span class="comment">#&gt;&gt;&gt;True</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;s&#x27;</span>.isdigit())<span class="comment">#&gt;&gt;&gt;False</span></span><br></pre></td></tr></table></figure>
+
+<p>replace（）函数：指定替换内容以及被替换字符串，并且可以指定替换次数</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">s[0] = <span class="string">&#x27;k&#x27;</span></span><br><span class="line">```  </span><br><span class="line">TypeError:<span class="string">&#x27;str&#x27;</span>,object does not support item assignment 不能根据索引重新指派</span><br><span class="line">``` bash</span><br><span class="line"><span class="built_in">print</span>(s[0])<span class="comment">#&gt;&gt;&gt;l</span></span><br><span class="line">new_s = s.replace(<span class="string">&#x27;n&#x27;</span>,<span class="string">&#x27;k&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(new_s)<span class="comment">#&gt;&gt;&gt;leark pythok ik lemok</span></span><br><span class="line">renew_s = s.replace(<span class="string">&#x27;n&#x27;</span>,<span class="string">&#x27;k&#x27;</span>,1)<span class="comment">#数字表示替换的次数，当需要替换的字符串有多个，不填写数字则默认全部替换，填写数字则进行对应次数替换</span></span><br><span class="line"><span class="built_in">print</span>(renew_s)<span class="comment">#&gt;&gt;&gt;leark python in lemon</span></span><br></pre></td></tr></table></figure>
+
+<p>split()函数：根据指定字符对字符串进行切割,可以指定切割的次数，默认是全部切割</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">t = <span class="string">&#x27;learn python in lemon&#x27;</span></span><br><span class="line"><span class="built_in">print</span>(t.split(<span class="string">&#x27; &#x27;</span>,2)) <span class="comment">#返回一个列表，列表里面的元素都是字符串,attention:这里指定空格为切割符；结果：[&#x27;learn&#x27;, &#x27;python&#x27;, &#x27;in lemon&#x27;]</span></span><br><span class="line"><span class="built_in">print</span>(t.split(<span class="string">&#x27;l&#x27;</span>))<span class="comment">#结果：[&#x27;&#x27;, &#x27;earn python in &#x27;, &#x27;emon&#x27;]，这里被用作切割符的字符串结果中不展示，第一个返回是个空字符串</span></span><br></pre></td></tr></table></figure>
+
+<p>strip()函数：去掉头或尾指定的字符，返回一个新的字符串</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="string">&#x27;****learn python in lemon\n&#x27;</span><span class="comment">#\n-python中的换行符</span></span><br><span class="line"><span class="built_in">print</span>(a)</span><br><span class="line">a_2 = a.strip(<span class="string">&#x27;*&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(a_2)<span class="comment">#&gt;&gt;&gt;learn python in lemon\n</span></span><br><span class="line">a_3 = a_2.strip(<span class="string">&#x27;\n&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(a_3)<span class="comment">#&gt;&gt;&gt;learn python in lemon</span></span><br></pre></td></tr></table></figure>
+
+<p>upper()函数：字符串字母转成大写<br>lower()函数：字符串的字母转成小写<br>swapcase()函数：字符串的字母大小写互换</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">b = <span class="string">&#x27;learn python in lemon&#x27;</span></span><br><span class="line"><span class="built_in">print</span>(b.upper())<span class="comment">#&gt;&gt;&gt;LEARN PYTHON IN LEMON</span></span><br><span class="line"><span class="built_in">print</span>(b.upper().lower())<span class="comment">#&gt;&gt;&gt;learn python in lemon</span></span><br><span class="line">常用于不区分大小写限制</span><br><span class="line"><span class="built_in">print</span>(b.swapcase())<span class="comment">#&gt;&gt;&gt;LEARN PYTHON IN LEMON</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="数据类型-列表-list"><a href="#数据类型-列表-list" class="headerlink" title="数据类型_列表_list"></a>数据类型_列表_list</h2><p>python的数据类型之列表<br>列表的定义：<br>关键字：list（列表）<br>使用最频繁的数据类型，列表可以完成大多数集合类的数据结构实现<br>它支持字符，数字，字符串甚至包含列表（即嵌套）<br>列表用[]标识<br>有序数据</p>
+<h3 id="1-空列表"><a href="#1-空列表" class="headerlink" title="1.空列表"></a>1.空列表</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">t = []</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">type</span>(t))<span class="comment">#&gt;&gt;&gt;&lt;class &#x27;list&#x27;&gt;</span></span><br><span class="line"><span class="built_in">print</span>(len(t))<span class="comment">#&gt;&gt;&gt;0</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="2-列表里面的数据用逗号隔开，数据可以是任意数据类型"><a href="#2-列表里面的数据用逗号隔开，数据可以是任意数据类型" class="headerlink" title="2.列表里面的数据用逗号隔开，数据可以是任意数据类型"></a>2.列表里面的数据用逗号隔开，数据可以是任意数据类型</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">t = [1,0.03,False,True,<span class="string">&#x27;hello&#x27;</span>,(1,2,<span class="string">&#x27;python&#x27;</span>),[1,0.5,False]]</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">type</span>(t))<span class="comment">#&gt;&gt;&gt;&lt;class &#x27;list&#x27;&gt;</span></span><br><span class="line"><span class="built_in">print</span>(len(t))<span class="comment">#&gt;&gt;&gt;7</span></span><br><span class="line"><span class="built_in">print</span>(t[2])<span class="comment">#&gt;&gt;&gt;False</span></span><br><span class="line"><span class="built_in">print</span>(t[5][2][2])<span class="comment">#&gt;&gt;&gt;t</span></span><br><span class="line"><span class="built_in">print</span>(t[-1][-1])<span class="comment">#&gt;&gt;&gt;False</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="3-列表的操作：增删改查"><a href="#3-列表的操作：增删改查" class="headerlink" title="3.列表的操作：增删改查"></a>3.列表的操作：增删改查</h3><p>列表的特性：有序可变<br>有序：说明有索引，索引也是从0/-1开始，也分正序和反序，索引规则同字符串<br>可变：说明列表可以做删 增 改<br>切片：同字符串切片规则，列表明[start:end:step]</p>
+<h4 id="取值偶数位的元素"><a href="#取值偶数位的元素" class="headerlink" title="取值偶数位的元素"></a>取值偶数位的元素</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(t[0::2])<span class="comment">#取到的还是列表&gt;&gt;&gt;[1, False, &#x27;hello&#x27;, [1, 0.5, False]]</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="列表进行倒叙输出"><a href="#列表进行倒叙输出" class="headerlink" title="列表进行倒叙输出"></a>列表进行倒叙输出</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(t[::-1])<span class="comment">#&gt;&gt;&gt;[[1, 0.5, False], (1, 2, &#x27;python&#x27;), &#x27;hello&#x27;, True, False, 0.03, 1]</span></span><br></pre></td></tr></table></figure>
+
+<p>attention：<br>列表与元祖的不同之处<br>1.元祖不可变，列表可变<br>2.元祖如果只有一个元素要记得加逗号，列表无这个操作<br>3.元祖 tuple() 列表 list[]</p>
+<p>列表与元祖的相同之处：<br>1.有序 有索引<br>2.可以根据索引取值<br>3.切片的方法方式都是一样的</p>
+<h4 id="3-1：增加元素"><a href="#3-1：增加元素" class="headerlink" title="3.1：增加元素"></a>3.1：增加元素</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">t.append(<span class="string">&#x27;test&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(t)<span class="comment">#&gt;&gt;&gt;[1, 0.03, False, True, &#x27;hello&#x27;, (1, 2, &#x27;python&#x27;), [1, 0.5, False], &#x27;test&#x27;]</span></span><br><span class="line">t.append(<span class="string">&#x27;测试&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(t)<span class="comment">#&gt;&gt;&gt;[1, 0.03, False, True, &#x27;hello&#x27;, (1, 2, &#x27;python&#x27;), [1, 0.5, False], &#x27;test&#x27;, &#x27;测试&#x27;]</span></span><br></pre></td></tr></table></figure>
+
+<p>综上所述.append()默认追加元素到列表的末尾，每次只能添加一个元素</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">t.insert(1,<span class="string">&#x27;insert&#x27;</span>)<span class="comment">#可以插入到指定索引位置，原有的保留并往后挪一位&gt;&gt;&gt;[1, &#x27;insert&#x27;, 0.03, False, True, &#x27;hello&#x27;, (1, 2, &#x27;python&#x27;), [1, 0.5, False], &#x27;test&#x27;, &#x27;测试&#x27;]</span></span><br><span class="line">t.extend([1,2,3,4])<span class="comment">#拓展列表的操作，合并列表，注意是合并而不是将列表作为一个值嵌套进列表中&gt;&gt;&gt;[1, &#x27;insert&#x27;, 0.03, False, True, &#x27;hello&#x27;, (1, 2, &#x27;python&#x27;), [1, 0.5, False], &#x27;test&#x27;, &#x27;测试&#x27;, 1, 2, 3, 4]</span></span><br><span class="line">s = [5,6,7]</span><br><span class="line">t = t+s</span><br><span class="line"><span class="built_in">print</span>(t)<span class="comment">#&gt;&gt;&gt;[1, &#x27;insert&#x27;, 0.03, False, True, &#x27;hello&#x27;, (1, 2, &#x27;python&#x27;), [1, 0.5, False], &#x27;test&#x27;, &#x27;测试&#x27;, 1, 2, 3, 4, 5, 6, 7]</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="3-2：删除元素"><a href="#3-2：删除元素" class="headerlink" title="3.2：删除元素"></a>3.2：删除元素</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">t.pop()<span class="comment">#默认删除最后一个元素</span></span><br><span class="line">t.pop(i)<span class="comment">#删除列表中指定位置的元素</span></span><br><span class="line">t.pop(0)<span class="comment">#删除列表中第一个值</span></span><br><span class="line">t.clear()<span class="comment">#移除列表里面的所有数据</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="3-3：修改元素，修改原有的值，赋值的方式-列表名-索引值-新值"><a href="#3-3：修改元素，修改原有的值，赋值的方式-列表名-索引值-新值" class="headerlink" title="3.3：修改元素，修改原有的值，赋值的方式 列表名[索引值]=新值"></a>3.3：修改元素，修改原有的值，赋值的方式 列表名[索引值]=新值</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">t2[2] = False</span><br><span class="line"><span class="built_in">print</span>(t2)<span class="comment">#&gt;&gt;&gt;[1, 0.02, False, &#x27;hello&#x27;, (1, 2, 3, &#x27;python&#x27;), [1, 0.02, False, [&#x27;hello&#x27;]]]</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="3-4：查：根据索引值取值，切片"><a href="#3-4：查：根据索引值取值，切片" class="headerlink" title="3.4：查：根据索引值取值，切片"></a>3.4：查：根据索引值取值，切片</h4><p>.index()<br>.count()</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(t2.index(1))<span class="comment">#括号内的值为列表中的元素，作用是确定元素所在的搜索位置&gt;&gt;&gt;0</span></span><br><span class="line"><span class="built_in">print</span>(t2.count(0.02))<span class="comment">#统计列表中0.02这个元素的数量&gt;&gt;&gt;1</span></span><br></pre></td></tr></table></figure>
+
+<p>百分百需要记住的函数：.append();.extend();insert()；.pop();</p>
+<h3 id="3-数据类型-元祖-tuple"><a href="#3-数据类型-元祖-tuple" class="headerlink" title="3.数据类型_元祖_tuple"></a>3.数据类型_元祖_tuple</h3><p>元祖的定义：<br>特性：关键字 tuple()<br>它支持字符，数字，字符串甚至可以包含元祖（即嵌套）<br>元祖用（）标识<br>有序数据<br>t = ()#空元祖</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="built_in">type</span>(t))<span class="comment">#&gt;&gt;&gt;&lt;class &#x27;tuple&#x27;&gt;</span></span><br><span class="line"><span class="built_in">print</span>(len)<span class="comment">#&gt;&gt;&gt;0</span></span><br></pre></td></tr></table></figure>
+<p>t2 = (1,)#只有一个数据的时候注意取法</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="built_in">type</span>(t2))<span class="comment">#&gt;&gt;&gt;&lt;class &#x27;tuple&#x27;&gt;</span></span><br><span class="line"><span class="built_in">print</span>(t2)<span class="comment">#&gt;&gt;&gt;0</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="索引，索引取值，切片同字符串的方法"><a href="#索引，索引取值，切片同字符串的方法" class="headerlink" title="索引，索引取值，切片同字符串的方法"></a>索引，索引取值，切片同字符串的方法</h4><p>修改元祖的值：不可修改，元祖属于不可变数据<br>嵌套元祖，例：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">t3 = (1,0.03,True,<span class="string">&#x27;false&#x27;</span>,(4,5,6,<span class="string">&#x27;python&#x27;</span>))</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">type</span>(t3))<span class="comment">#&gt;&gt;&gt;&lt;class &#x27;tuple&#x27;&gt;</span></span><br><span class="line"><span class="built_in">print</span>(len(t3))<span class="comment">#&gt;&gt;&gt;5</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="元祖的特性：有序不可变"><a href="#元祖的特性：有序不可变" class="headerlink" title="元祖的特性：有序不可变"></a>元祖的特性：有序不可变</h4><p>有序：说明有索引，索引也是从0/-1开始，也分正序和反序<br>不可变：说明元祖一旦确定，那么值就不能做变更；删 增 改都不支持</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(t3[0])<span class="comment">#&gt;&gt;&gt;1</span></span><br><span class="line"><span class="built_in">print</span>(t3[-1])<span class="comment">#&gt;&gt;&gt;(4, 5, 6, &#x27;python&#x27;)</span></span><br></pre></td></tr></table></figure>
+
+<p>元祖里面的嵌套取值：根据索引一层一层的去定位</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(t3[-1][-1][0])<span class="comment">#&gt;&gt;&gt;p</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="元祖的切片：元祖名-start-end-step"><a href="#元祖的切片：元祖名-start-end-step" class="headerlink" title="元祖的切片：元祖名[start:end:step]"></a>元祖的切片：元祖名[start:end:step]</h4><p>取值偶数位的元素</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(t3[0::2])<span class="comment">#取到的还是元祖&gt;&gt;&gt;(1, True, (4, 5, 6, &#x27;python&#x27;))</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="元祖进行倒叙输出"><a href="#元祖进行倒叙输出" class="headerlink" title="元祖进行倒叙输出"></a>元祖进行倒叙输出</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(t3[::-1])<span class="comment">#&gt;&gt;&gt;((4, 5, 6, &#x27;python&#x27;), &#x27;false&#x27;, True, 0.03, 1)</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="常用方法："><a href="#常用方法：" class="headerlink" title="常用方法："></a>常用方法：</h4><p>index(x):获取x的索引值，获取元祖里面某个元素的索引值<br>count(x):统计x的个数</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(t3.index(0.03))<span class="comment">#&gt;&gt;&gt;1</span></span><br><span class="line"><span class="built_in">print</span>(t3.count(1))<span class="comment">#此处输出为2，why？因为存在布尔值True，布尔值中True == 1；false == 0；</span></span><br></pre></td></tr></table></figure>
+<h3 id="4-数据类型-字典-dict"><a href="#4-数据类型-字典-dict" class="headerlink" title="4.数据类型_字典_dict"></a>4.数据类型_字典_dict</h3><p>字典的定义：<br>关键字：dictionary（dict），除列表以外python之中最灵活的内置数据结构类型字典是无序的对象集合<br>标识：{}<br>无序数据，是除了列表之外，python中使用最多的数据类型<br>存储数据的形式： key:value<br>key:是唯一的且不可边变的数据（int float tuple boolen，str）<br>value:任何数据类型都支持</p>
+<p>question1：如果key重复的话，会如何？<br>result：后面的值会把前面的值覆盖掉</p>
+<h4 id="4-1空字典"><a href="#4-1空字典" class="headerlink" title="4.1空字典"></a>4.1空字典</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">d = &#123;&#125;</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">type</span>(d))<span class="comment">#&gt;&gt;&gt;&lt;class &#x27;dict&#x27;&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="4-2-定义一个字典-key-value"><a href="#4-2-定义一个字典-key-value" class="headerlink" title="4.2:定义一个字典 key:value"></a>4.2:定义一个字典 key:value</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">d1 = &#123;1:<span class="string">&#x27;no 1&#x27;</span>,</span><br><span class="line">     0.02:<span class="string">&#x27;零花钱&#x27;</span>,</span><br><span class="line">     True:<span class="string">&#x27;result&#x27;</span>,</span><br><span class="line">     <span class="string">&#x27;name&#x27;</span>:666,</span><br><span class="line">     (1,3):<span class="string">&#x27;tuple&#x27;</span>,</span><br><span class="line">      <span class="string">&#x27;list&#x27;</span>:[2,3,4]</span><br><span class="line">      &#125;</span><br><span class="line"><span class="built_in">print</span>(d1)<span class="comment">#&gt;&gt;&gt;&#123;1: &#x27;result&#x27;, 0.02: &#x27;零花钱&#x27;, &#x27;name&#x27;: 666, (1, 3): &#x27;tuple&#x27;, &#x27;list&#x27;: [2, 3, 4]&#125;</span></span><br></pre></td></tr></table></figure>
+<h4 id="4-3：无序"><a href="#4-3：无序" class="headerlink" title="4.3：无序"></a>4.3：无序</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(d1)<span class="comment">#每一次执行输出的时候都会变化顺序,随机的不好复现</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="4-4：取值，根据key取值，字典名-key"><a href="#4-4：取值，根据key取值，字典名-key" class="headerlink" title="4.4：取值，根据key取值，字典名[key]"></a>4.4：取值，根据key取值，字典名[key]</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(d1[True])<span class="comment">#&gt;&gt;&gt;result</span></span><br><span class="line"><span class="built_in">print</span>(d1[<span class="string">&#x27;list&#x27;</span>][-1])<span class="comment">#&gt;&gt;&gt;4</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="4-5：key必须是唯一的不重复的，如果出现重复的，则后面的值会把前面的值覆盖掉"><a href="#4-5：key必须是唯一的不重复的，如果出现重复的，则后面的值会把前面的值覆盖掉" class="headerlink" title="4.5：key必须是唯一的不重复的，如果出现重复的，则后面的值会把前面的值覆盖掉"></a>4.5：key必须是唯一的不重复的，如果出现重复的，则后面的值会把前面的值覆盖掉</h4><p>字典也是用来存储数据的，那么何时使用字典？<br>当值需要成对存储的时候，可以理解为数据库</p>
+<h4 id="4-6：字典的操作，增，删，改，查询"><a href="#4-6：字典的操作，增，删，改，查询" class="headerlink" title="4.6：字典的操作，增，删，改，查询"></a>4.6：字典的操作，增，删，改，查询</h4><p>查：根据key来查询<br>字典嵌套字典<br>字典嵌套元祖<br>字典嵌套列表</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">d2=&#123;<span class="string">&#x27;class&#x27;</span>:<span class="string">&#x27;python15&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;teacher&#x27;</span>:[<span class="string">&#x27;小明&#x27;</span>,<span class="string">&#x27;小红&#x27;</span>,<span class="string">&#x27;小刚&#x27;</span>,<span class="string">&#x27;小白&#x27;</span>],</span><br><span class="line">    <span class="string">&#x27;vip&#x27;</span>:&#123;<span class="string">&#x27;A&#x27;</span>:<span class="string">&#x27;小红&#x27;</span>,<span class="string">&#x27;B&#x27;</span>:<span class="string">&#x27;小明&#x27;</span>,<span class="string">&#x27;c&#x27;</span>:<span class="string">&#x27;小白&#x27;</span>&#125;,</span><br><span class="line">    <span class="string">&#x27;score&#x27;</span>:(88,99,100),</span><br><span class="line">    <span class="string">&#x27;test&#x27;</span>:2334,</span><br><span class="line">    <span class="string">&#x27;test02&#x27;</span>:<span class="string">&#x27;hello&#x27;</span></span><br><span class="line">   &#125;</span><br><span class="line">取小明的值：方法一层一层的取定位，根据key</span><br><span class="line"><span class="built_in">print</span>(d2[<span class="string">&#x27;vip&#x27;</span>][<span class="string">&#x27;B&#x27;</span>])<span class="comment">#&gt;&gt;&gt;小明</span></span><br><span class="line">取最后一个老师的名字:</span><br><span class="line"><span class="built_in">print</span>(d2[<span class="string">&#x27;teacher&#x27;</span>][-1])<span class="comment">#&gt;&gt;&gt;小白</span></span><br><span class="line">取倒数第二的分数</span><br><span class="line"><span class="built_in">print</span>(d2[<span class="string">&#x27;score&#x27;</span>][-2])<span class="comment">#&gt;&gt;&gt;99</span></span><br></pre></td></tr></table></figure>
+
+<p>增</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">d[不存在的key] = 新值</span><br></pre></td></tr></table></figure>
+
+<p>改</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">d[已有的key] = 新值</span><br><span class="line">d2[<span class="string">&#x27;vip&#x27;</span>][<span class="string">&#x27;A&#x27;</span>] = <span class="string">&#x27;小刚&#x27;</span></span><br><span class="line"><span class="built_in">print</span>(d2[<span class="string">&#x27;vip&#x27;</span>][<span class="string">&#x27;A&#x27;</span>])<span class="comment">#&gt;&gt;&gt;小刚</span></span><br><span class="line"><span class="built_in">print</span>(d2)<span class="comment">#&#123;&#x27;class&#x27;: &#x27;python15&#x27;, &#x27;teacher&#x27;: [&#x27;小明&#x27;, &#x27;小红&#x27;, &#x27;小刚&#x27;, &#x27;小白&#x27;], &#x27;vip&#x27;: &#123;&#x27;A&#x27;: &#x27;小刚&#x27;, &#x27;B&#x27;: &#x27;小明&#x27;, &#x27;c&#x27;: &#x27;小白&#x27;&#125;, &#x27;score&#x27;: (88, 99, 100), &#x27;test&#x27;: 2334, &#x27;test02&#x27;: &#x27;hello&#x27;&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>删除</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">d.pop(<span class="string">&#x27;vip&#x27;</span>)<span class="comment">#根据key删除--删除键值对</span></span><br><span class="line">d.clear()<span class="comment">#清空字典</span></span><br><span class="line">d.popitem()<span class="comment">#随机删除某个键值对</span></span><br></pre></td></tr></table></figure>
+
+<p>其他用法<br>items():以列表返回可遍历的（键，值）元组数组</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(d2.items())</span><br><span class="line"><span class="comment">#&gt;&gt;&gt;dict_items([(&#x27;class&#x27;, &#x27;python15&#x27;), (&#x27;teacher&#x27;, [&#x27;小明&#x27;, &#x27;小红&#x27;, &#x27;小刚&#x27;, &#x27;小白&#x27;]), (&#x27;vip&#x27;, &#123;&#x27;A&#x27;: &#x27;小刚&#x27;, &#x27;B&#x27;: &#x27;小明&#x27;, &#x27;c&#x27;: &#x27;小白&#x27;&#125;), (&#x27;score&#x27;, (88, 99, 100)), (&#x27;test&#x27;, 2334), (&#x27;test02&#x27;, &#x27;hello&#x27;)])</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="keys-以列表返回一个字典所有的键"><a href="#keys-以列表返回一个字典所有的键" class="headerlink" title="keys():以列表返回一个字典所有的键"></a>keys():以列表返回一个字典所有的键</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(d2.keys())</span><br><span class="line"><span class="comment">#&gt;&gt;&gt;dict_keys([&#x27;class&#x27;, &#x27;teacher&#x27;, &#x27;vip&#x27;, &#x27;score&#x27;, &#x27;test&#x27;, &#x27;test02&#x27;])</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="values-：以列表返回一个字典所有的值"><a href="#values-：以列表返回一个字典所有的值" class="headerlink" title="values()：以列表返回一个字典所有的值"></a>values()：以列表返回一个字典所有的值</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(d2.values())</span><br><span class="line"><span class="comment">#&gt;&gt;&gt;dict_values([&#x27;python15&#x27;, [&#x27;小明&#x27;, &#x27;小红&#x27;, &#x27;小刚&#x27;, &#x27;小白&#x27;], &#123;&#x27;A&#x27;: &#x27;小刚&#x27;, &#x27;B&#x27;: &#x27;小明&#x27;, &#x27;c&#x27;: &#x27;小白&#x27;&#125;, (88, 99, 100), 2334, &#x27;hello&#x27;])</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="pop-key-：删除指定key的字典值，会返回被删除的这个值"><a href="#pop-key-：删除指定key的字典值，会返回被删除的这个值" class="headerlink" title="pop(key)：删除指定key的字典值，会返回被删除的这个值"></a>pop(key)：删除指定key的字典值，会返回被删除的这个值</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(d2.pop(<span class="string">&#x27;test02&#x27;</span>))<span class="comment">#&gt;&gt;&gt;hello</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="del-字典名-key-删除指定key的字典值"><a href="#del-字典名-key-删除指定key的字典值" class="headerlink" title="del 字典名[key]:删除指定key的字典值"></a>del 字典名[key]:删除指定key的字典值</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">del d2[<span class="string">&#x27;teacher&#x27;</span>]</span><br><span class="line"><span class="built_in">print</span>(d2)</span><br><span class="line">&gt;&gt;&gt;&#123;<span class="string">&#x27;class&#x27;</span>: <span class="string">&#x27;python15&#x27;</span>, <span class="string">&#x27;vip&#x27;</span>: &#123;<span class="string">&#x27;A&#x27;</span>: <span class="string">&#x27;小刚&#x27;</span>, <span class="string">&#x27;B&#x27;</span>: <span class="string">&#x27;小明&#x27;</span>, <span class="string">&#x27;c&#x27;</span>: <span class="string">&#x27;小白&#x27;</span>&#125;, <span class="string">&#x27;score&#x27;</span>: (88, 99, 100), <span class="string">&#x27;test&#x27;</span>: 2334&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="5-python运算符"><a href="#5-python运算符" class="headerlink" title="5.python运算符"></a>5.python运算符</h3><p>python语言支持以下类型的运算符：<br>算数运算符–must<br>比较（关系）运算符—must<br>赋值运算符—must<br>逻辑运算符—must<br>成员运算符—must<br>位运算符<br>身份运算符<br>运算符优先级</p>
+<h4 id="5-1：算术运算符：-，-，"><a href="#5-1：算术运算符：-，-，" class="headerlink" title="5.1：算术运算符：+，-，*, /, %"></a>5.1：算术运算符：+，-，*, /, %</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">a = 10</span><br><span class="line">b = 5</span><br><span class="line"><span class="built_in">print</span>(a+b)<span class="comment">#&gt;&gt;&gt;15</span></span><br><span class="line"><span class="built_in">print</span>(a*b)<span class="comment">#&gt;&gt;&gt;50</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>字符串的拼接，列表的拼接<br>乘法：对字符串列表 元组 要输出多次<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">s_1=<span class="string">&#x27;hello&#x27;</span></span><br><span class="line">s_2=[1,2,3]</span><br><span class="line"><span class="built_in">print</span>(s_1*3)<span class="comment">#&gt;&gt;&gt; hellohellohello</span></span><br><span class="line"><span class="built_in">print</span>((s_1+<span class="string">&#x27; &#x27;</span>)*3)<span class="comment">#&gt;&gt;&gt; hello hello hello</span></span><br><span class="line"><span class="built_in">print</span>(s_2*2) <span class="comment">#&gt;&gt;&gt;[1, 2, 3, 1, 2, 3]</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>% 模运算 取余运算</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">5/4 商1余下1</span><br><span class="line"><span class="built_in">print</span>(5%4)<span class="comment">#&gt;&gt;&gt;:1</span></span><br><span class="line">5/3 商1余2</span><br><span class="line"><span class="built_in">print</span>(5%3)<span class="comment">#&gt;&gt;&gt;2</span></span><br><span class="line"><span class="built_in">print</span>(5/4)<span class="comment">#&gt;&gt;&gt;1.25</span></span><br></pre></td></tr></table></figure>
+
+<p>作用：判断奇数偶数的<br>例：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">x = int(input(<span class="string">&quot;请输入一个整数：&quot;</span>))<span class="comment">#一定要定义函数数据类型（格式化# ）</span></span><br><span class="line"><span class="keyword">if</span> x &lt;= 0:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;请输入大于0的整数！&quot;</span>)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    y = x%2</span><br><span class="line">    <span class="keyword">if</span> y == 0:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;您输入的是偶数&quot;</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;您输入的是奇数&quot;</span>)</span><br><span class="line"></span><br><span class="line">x%2的值是0 则说明x是偶数</span><br><span class="line">x%2的值为1 则说明x是奇数</span><br></pre></td></tr></table></figure>
+
+<p>判断数据类型：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">number = int(input(<span class="string">&quot;请输入一个数字：&quot;</span>))</span><br><span class="line"><span class="keyword">if</span> <span class="built_in">type</span>(number) == int:</span><br><span class="line">    <span class="keyword">if</span> number == 0:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;请输入大于0的整数！&quot;</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        result1 = number%2</span><br><span class="line">        <span class="keyword">if</span> result1 == 0:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&quot;您输入的是偶数&quot;</span>)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&quot;您输入的是奇数&quot;</span>)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;您输入的不是正整数！&quot;</span>)</span><br><span class="line">-----以上代码有个很大的问题，input()输出的值的数据类型为字符串，所以即使输入的是2，2的数据类型不是int，而是str</span><br><span class="line"></span><br><span class="line">nub = int(input())</span><br><span class="line">practise：上述的循环没有有效的判断出数据的类型，尝试判断数字是正数还是负数</span><br></pre></td></tr></table></figure>
+
+<p>比较（关系）运算符：<br>6种比较关系：&gt;,&gt;=,&lt;,&lt;=,==,!=<br>nub1 = 10<br>nub2 = 2<br>print(nub1 &gt; nub2)#&gt;&gt;&gt;True<br>print(nub1 &gt;= nub2)#&gt;&gt;&gt;True<br>print(nub1 == nub2)#&gt;&gt;&gt;False<br>print(nub1 != nub2)#&gt;&gt;&gt;True<br>print(nub1 &lt; nub2)#&gt;&gt;&gt;False<br>print(nub1 &lt;= nub2)#&gt;&gt;&gt;False</p>
+<p>python是区分大小写的！<br>print(‘get’ == ‘Get’)#&gt;&gt;&gt;False<br>print(False == 0)#&gt;&gt;&gt;True  0等同于False，1等同于True（主要用于判断语句）</p>
+<h4 id="赋值运算符"><a href="#赋值运算符" class="headerlink" title="赋值运算符 = += -="></a>赋值运算符 = += -=</h4><p>x=6<br>print(x)#&gt;&gt;&gt;6<br>y=1<br>y+=1#即y=y+1<br>print(y)#&gt;&gt;&gt;2<br>z=3<br>z-=1#即z=z-1&gt;&gt;&gt;2<br>print(z)#&gt;&gt;&gt;2</p>
+<h3 id="6-if判断"><a href="#6-if判断" class="headerlink" title="6.if判断"></a>6.if判断</h3><p>if 判断条件:<br>    执行语句….<br>else:<br>    执行语句….</p>
+<p>if 判断语句1:<br>    执行语句1….<br>elif 判断语句2:<br>    执行语句2….<br>else:<br>    执行语句3….</p>
+<p>for example:<br>score = 90<br>if score &gt;=90:<br>    print(‘优秀！’)<br>elif score &gt;= 80:<br>    print(‘良好！’)<br>elif score &gt;=60:<br>    print(‘及格’)<br>else:<br>    print(‘不及格’)</p>
+<p>#if条件判断语句里面，一定会有if开头，如果是多重判断我们可以引用elif 最后一种默认处理<br>#但是else elif都不是必须的，根据业务场景<br>#if, elif后面必须加判断条件<br>#else后面不能加判断条件<br>#利用random函数生成随机整数，从1-9取出来，然后输入一个数字，来猜，如果大于，则打印bigger。小了，则打印less<br>random.randint(1,10) # 产生 1 到 10 的一个整数型随机数<br>random.random()         # 产生 0 到 1 之间的随机浮点数<br>random.choice(‘tomorrow’)  # 从序列中随机选取一个元素<br>random.randrange(1,100,2)  # 生成从1到100的间隔为2的随机整数</p>
+<p>import random #一定要写这个<br>r = random.randint(1,9)<br>NUM = int(input(‘请输入一个整数：’))</p>
+<p>if NUM &gt; r:<br>    print(‘bigger’)<br>elif NUM == r:<br>    print(‘equal’)<br>else:<br>    print(‘less’)<br>print(r)</p>
+<p>7.for循环<br>#用于遍历一个集合<br>#基本形式:<br>for 变量 in 集合：<br>    执行语句</p>
+<p>for 变量 in 集合：<br>    执行语句1<br>else:<br>    执行语句2<br>#通常与range()函数一起使用，range()返回一个列表，for…in…遍历这个列表中的元素<br>#for example:<br>for i in range(10):<br>    print(“循环10次”)</p>
+<p>for j in range(-1,2):<br>    if x &gt; 0:<br>        print(“正数:”,x)<br>    elif x == 0:<br>        print(“零”,o)<br>    else:<br>        print(“负数”,x)<br>else:<br>    print(“循环结束”)</p>
+<p>8.while循环<br>#while循环：用于循环执行程序，在某个条件下，循环执行某段程序，以处理需要重复处理的相同任务。<br>#基本形式：<br>while 判断条件：<br>执行语句….</p>
+<p>#判断条件：可以是比较，逻辑，成员，True，False 0，1，非空数据，空数据<br>#最终要的依据:判断条件的结果，到底是True 还是False<br>#执行逻辑，先判断条件，再根据条件的值，决定是否要执行下面的代码块<br>#执行完毕 会再次判断while后面的条件，决定是否要执行下面的代码块<br>True 死循环<br>False 不会执行while下面的代码块<br>0 就相当于False，所以不会执行while下面的代码<br>1 相当于True，会进入死循环<br>[]/{}/()/‘’ 不会执行while下面的代码#即为False<br>[1]/(1,2)/{“name”:”python”}  死循环#即为True<br>什么也不填 报错。while后面必须要填写一个条件</p>
+<p>综上所述，while后面的条件一直为真，则会陷入死循环；同理，条件一直为False则永远不进入循环体内</p>
+<p>#如何防止进入死循环以及无法进入while循环呢<br>解决方案：<br>1.while后面的条件不为恒定值：让while后面的条件随着循环执行的次数变化而变化<br>    1)引入变量，并在内部实现变量的递增或递减<br>    2)变量与while后面的条件相结合</p>
+<p>2.while后面的条件为恒定值<br>    1)引入continue 和 break<br>    2)添加内部判断条件</p>
+<p>9.break&amp;continue </p>
+<p>#practice：<br>#我要循环三次<br>#变量自减，在恒定true的情况下，在循环的内部添加判断条件，达到可控的循环（避免死循环）<br>count=3<br>while True:<br>    print(‘这个是python_while循环条件下的语句’)<br>    count -=1#每执行一次都会减1<br>    print(count)<br>    if count&gt;0:<br>        continue#结束本次循环，继续下一次循环<br>    else:<br>        break#结束循环</p>
+<p>10.抛出异常<br>知识点：<br>#try…except…finally语句<br>#raise语句<br>#assert语句<br>#自定义异常<br>#程序调试<br>在python3中，BaseException是所有异常的基类，所有的内置异常都是它的派生类。用户自定义的异常也应该继承它。常见内部异常：</p>
+<ol>
+<li>   AssertionError&gt;assert语句失败时出发；</li>
+<li>   AttributeError&gt;属性引用和属性赋值异常</li>
+<li>   ImportError&gt;导入异常，点那个import语句或from语句无法再模块中找到相应文件名称时触发</li>
+<li>   NameError&gt;名称异常，在局部或全局空间中无法找到文件名称时触发</li>
+<li>   SyntaxError&gt;语法错误</li>
+<li>   SystemError&gt;编译器内部错误</li>
+<li>   TypeError&gt;当操作或者函数应用找不到合适的类型时触发</li>
+</ol>
+<p>#try…except…<br>    try:#尝试读取一个不存在的文件<br>        open(“hello.txt”,“r”)<br>    except FileNotFoundError:#捕获FileNotFoundError异常<br>        print(“文件不存在”)<br>    excrpt:#    其他异常情况<br>        print(“程序异常”)<br>异常处理语也可以嵌套：<br>    try:<br>        s =“hello”<br>        try:<br>            print()<br>            print()<br>        Except TypeError:<br>            Print(“字符串不支持减法运算”)<br>    except:<br>        Print(“异常”)<br>#attention：若外层try子句中的代码块引发异常，程序将直接跳转到外层try对应的except子句，而内部的try语句不会被执行。<br>    try:<br>        执行语句<br>    except FileNotFoundError:#捕获指定异常<br>        执行语句<br>finally:#无论异常是否发生finally子句都会被执行<br>    执行语句</p>
+<p>11.文件操作<br>#什么是文件？文件是数据的集合和抽象<br>文件类型：1.文本文件；2.二进制文件<br>文件本质上都是存储在存储器上的二进制数据<br>#字符编码：1.ascii码—最先发明的字符编码（一个字符占据一个字节）；2.gb2312:简体中文字符集；3.gbk（对gb2312的优化）；4.unicode：纳入世界上所有符号，但是效率不高；5.utf-8:为了提高unicode效率，现在最常用的编码方式</p>
+<p>open()函数<br>指定处理模式，设置打开的文件为只读，只写，或可读写状态。<br>open(file,mode=’’,buffering=-1,encoding=None,errors=None,newline=None,closed=True,opener=None)<br>参数：<br>file-&gt;预打开的文件名，若文件不存在，open()将创建文件，如“test.txt”or 指定文件放置的位置“/user/Desktop/test.txt”<br>    mode-&gt;文件的打开模式，<br>“r”-&gt;以只读的方式打开文件；<br>“r+” -&gt;以读写的方式打开文件;<br>“w”-&gt;以写入的方式打开文件;删除文件内容，重新写入，若文件不存在则新建文件<br>“w+” -&gt;以读写的方式打开文件;删除文件内容，重新写入，若文件不存在则新建文件<br>“a” -&gt;;以写入的方式打开文件，在文件末尾追加新的内容，若文件不存在则新建文件<br>“a+” -&gt;;以读写的方式打开文件，在文件末尾追加新的内容，若文件不存在则新建文件<br>“b” -&gt;;以二进制模式打开文件，可与r，w，a，结合使用<br>“U” -&gt;支持所有换行符号。“\r”,”\n”,”\r\n”都表示换行</p>
+<p>和mode组合的字符：<br>“b”二进制模式，例如：“rb”表示二进制读取<br>“t”文本模式（默认），例如：rt一般省略t<br>“+”读取写入，例如“r+”表示同时读写</p>
+<p>1.基本操作：<br>创建一个名为test.txt的文本文件，（注意编码方式）文件中写入一下内容<br>窗前明月光，疑是地上霜。举头望明月，低头思故乡。<br>#打开文件mode = rt,t可以省略<br>fb = open(‘test.txt’，‘r’，encoding=‘utf-8’)<br>#读取<br>content = fb.read()<br>print(content)<br>#关闭文件<br>fb.close()</p>
+<p>attention:上面这种操作经常因为忘记关闭文件句柄，造成资源浪费，所以处理文件是往往使用with语句进行上下文管理。</p>
+<p>2.with上下文管理<br>with open(‘test.txt’，‘r’，encoding= ‘utf-8’)  as fb:<br>    content = fb.read()<br>    print(content)<br>3.逐行读取readline<br>从文件中读取一行，如果f.readline()返回一个空的字符串，表示已经达到了文件末尾<br>with open(‘test.txt’，‘r’，encoding= ‘utf-8’)  as fb:<br>    print(fb.readline())<br>readlines&gt;&gt;&gt;以列表形式返回所有行<br>with open(‘test.txt’，‘r’，encoding= ‘utf-8’)  as fb:<br>    content = fb.readlines()<br>    print(content)</p>
+<p>迭代:要从文件中读取行，也可以循环遍历文件对象，这是内存高效，快速的，并简化代码。<br>with open(‘test.txt’，‘r’，encoding= ‘utf-8’)  as fb:<br>    for line in fb:<br>        print(line)</p>
+<p>4.读二进制文件<br>任何文件都可以以二进制读的方式打开<br>with open(‘test.txt’，‘rb’)  as fb:<br>    content = fb.read()<br>    print(content)<br>#mode = rb，不需要encoding参数</p>
+<p>5.写文本文件_清除写w<br>        with open(path,’a’,encoding=’utf-8’) as f:<br>            f.write(name + ‘\n’)<br>            f.writelines(text)<br>            f.write(‘\n\n’)<br>w会清楚原文件内容重新写入</p>
+<p>6.写文本文件_追加写_a<br>7.写文本文件_排他写x：当写入的文件存在则不创建，报错-&gt;&gt;&gt;file exists：‘test.txt’<br>8.写二进制文件：wb；这种模式下写入内容为字节数据<br>9.文件指针：open函数返回的文件对象使用文件指针来记录当前在文件中的位置<br>10.read方法：在读模式下，使用文件对象的read 方法可以读取文件的内容，接受一个整数参数表示读取内容的大小，文本模式下表示字符数量，二进制模式下表示字节大小。<br>    with open(‘test.txt’，‘r’，encoding= ‘utf-8’)  as fb:<br>        content = fb.read(3)</p>
+<blockquote>
+<p>床前明</p>
+</blockquote>
+<p>11.tell方法：返回整数，表示文件指针距离文件开头的字节数<br>    with open(‘test.txt’，‘r’，encoding= ‘utf-8’)  as fb:<br>        print(fb.tell())#&gt;&gt;&gt;0<br>        content = fb.read(3)<br>        print(content)<br>        print(fb.tell())#&gt;&gt;&gt;9<br>12.seek方法：移动文件句柄<br>    seek(offset= ;whence=0)<br>    offset：偏移指针的字节数<br>    whence：表示便宜参考，默认为0<br>        0&gt;&gt;&gt;表示偏移参考文件的开头，offset必须是=&gt;0的整数<br>        1&gt;&gt;&gt;表示偏移参考当前位置，offset可以是负数<br>        2&gt;&gt;&gt;表示偏移参考文件的结尾，offset一般是负数</p>
+<p>12.模块(model)&amp;包(packge)&amp;函数(function)<br>12.1.模块概念：模块是一个包含python定义和语句的文件，文件名就是模块名后跟文件后缀.py<br>（一个文件即一个模块）<br>    导入模块1：import 模块名<br>    for example:import requests;<br>    使用模块中的函数：（在导入模块前提下）<br>    res = requests.get(url=,headers=,params=)<br>    此方法：当前变量表中，不会直接定义导入的模块的函数名，他只定义了模块名，所以使用函数则是通过模块名访问函数</p>
+<pre><code>导入模块2：from 模块名 import 函数名
+For example:from fibo import fib,fib2
+此方法：并不会把被调模块引入当前的变量表中，而是将函数fib，fib2引入，可直接访问两个函数
+
+导入模块3：from 模块名 import *
+此方法：导入模块中定义的所有名称（函数名，变量，类名）
+
+导入模块4：from 模块名 as 新名称
+            from 模块名 import 名称 as 新名称
 </code></pre>
+<p>12.2.包的概念：模块的问题解决了代码过长不便于维护的问题，为避免模块名冲突，python又引入了用目录来组织模块的方法，包<br>for example:创建名为my_package的文件夹，将模块my_model.py放入该文件夹下，则可通过import my_package.my_model 来引入，目的：避免程序中不同包下存在不同的模块，避免引入模块时冲突。</p>
+<p>12.3.函数概念：具备一定功能，可重复使用的语句，用函数名来表示并通过函数名进行调用，每次使用函数可以提供不同的参数作为输入，以实现对不同数据的处理。</p>
+<p>12.3.1函数调用的过程：1.调用程序在调用处暂停执行；2.在调用时将实参赋值给函数的形参；3.执行函数体语句；4.函数调用结束给出返回值，程序回到调用前的暂停处继续执行<br>def -&gt;&gt;python中定义函数的关键字<br>def 函数名(参数列表)：<br>    函数体<br>    return 返回值列表</p>
+<p>12.3.2函数的参数<br>    形参：<br>      必须参数：定义函数时，调用者必须传递实参给这个形参，他就是必须参数，直接定义在函数名后()中的形参就是必须参数。<br>      默认参数：定义函数时，某些形参可能在调用时不用接收实参，这种情况可以定义为默认参数，在函数名后()，以参数名=默认值的形式定义的形参就是必须参数，默认参数必须定义在必须参数的后面<br>For example:定义一个函数，它接收两个参数content和times，content是函数需要打印的内容，times是函数打印的次数，若不传递times则默认打印一次。<br>    def my_print(content,times=1):  #定义函数<br>        for i in range(times):<br>            Print(content)<br>    my_print(‘happy birthday!’)    #调用，不写入times值<br>    &gt;&gt;&gt; happy birthday!<br>    my_print(‘happy birthday!’,2)  #调用，指定times值<br>    &gt;&gt;&gt; happy birthday!<br>         happy birthday!</p>
+<pre><code>  不定参数：在定义函数时，不确定在调用时会传递多少个实参，可定义不定参数
+    位置不定参数：在形参前加*号可以定义位置不定参数，通常定义为*args
+        用来接收函数调用时，以位置参数传递过来的超过形参数量的多余的参数
+        不定参数必须定义在默认参数后面
+        for example:
+        def add(x,y,*args):
+            x += y
+            for i in args:
+                x += i
+            print(x)
+        add(1,2,3,4)
+        &gt;&gt;&gt; 10
+    关键字不定参数：在形参前加**号可以定义关键字不定参，通常定义为**kwargs
+        用来接收函数调用时，以关键字参数传递过来的超过形参的多余的实参
+        for example:
+        def func(a,**kwargs):
+            print(kwargs,type(kwargs))
+        func(a=1,b=2,c=3,d=4)
+        &gt;&gt;&gt;&#123;‘b’=2,’c’= 3,’d’=4&#125;&lt;class’dict’&gt;
+        
+    实参：
+</code></pre>
+<ol>
+<li><p>位置参数：调用函数时，传递实参时默认会按照形参的位置一一对应，这种实参传递叫做位置参数<br>for example:<br>def my_power(x,n):<br> print(x**n)#x的n次幂<br>my_power(3,2)</p>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>9</p>
+</blockquote>
+</blockquote>
+</blockquote>
+</li>
+<li><p>关键字参数：调用函数时，传递实参时以 形参名=实参 的形式传递参数，叫做关键字参数<br>for example:</p>
+<pre><code>     调用上方函数：my_power(x=2,n=3)
+     &gt;&gt;&gt;8
+
+     3. *；**在传递实参时的用法
+     *解包：在传递实参的时候，可以通过*对迭代对象(列表)进行解包
+     for example：
+</code></pre>
+<p>def fun(a,b,*arg):</p>
+<pre><code> print(a,b,arg)
+</code></pre>
+<p>ls = [1,2,3,4,5,6]<br>fun(*ls)#&gt;&gt;&gt;1 2 (3, 4, 5, 6)</p>
+<pre><code>     **解包：在传递实参时候，可以通过**对字典对象进行解包
+</code></pre>
+<p>def fun(a,b,**kwargs):</p>
+<pre><code> print(a,b,kwargs)
+</code></pre>
+<p>dic = {‘a’:1,’b’:2,’c’:3,’d’:4}<br>fun(**dic)#&gt;&gt;&gt;1 2 {‘c’: 3, ‘d’: 4}</p>
+</li>
+</ol>
+<p>12.3.3.返回值return<br>Python中使用return关键字来退出函数，返回到函数被调用的地方继续往下执行<br>函数中可以没有返回值，也就是说函数中可以没有return语句，这时函数返回None<br>    for example：<br>    def add(x,y,*args):<br>        x += y<br>        for i in args:<br>            x += i<br>        return x<br>res = add(1,2)<br>print(res)</p>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>3</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<p>Lambdah函数:用来定义简单的，可以在一行内表示的函数(用的少)<br>语法格式：lambda arg1,arg2,… : expression</p>
+<p>变量作用域：局部变量；全局变量<br>global关键字：有时候需要在函数内部修改全局变量。使用globals关键字可以在函数内部修改全局变量<br>for example：<br>    a = 1<br>    def fun():<br>        global a<br>        a += 1<br>    fun()<br>    print(a)</p>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>2</p>
+</blockquote>
+</blockquote>
+</blockquote>
 
     </div>
 
@@ -1045,7 +508,10 @@ for example：
     <a href="/2021/12/13/JMeter%E9%9D%9Egui%E6%93%8D%E4%BD%9C%E6%B5%81%E7%A8%8B/" rel="prev" title="jmeter非GUI操作流程">
       <i class="fa fa-chevron-left"></i> jmeter非GUI操作流程
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2021/12/17/hello-world/" rel="next" title="Hello World">
+      Hello World <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -1104,7 +570,7 @@ for example：
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2-string"><span class="nav-number">1.</span> <span class="nav-text">字符串 string</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2-string"><span class="nav-number">1.</span> <span class="nav-text">字符串 string</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E6%A0%BC%E5%BC%8F%E5%8C%96%E8%BE%93%E5%87%BA1"><span class="nav-number">1.1.</span> <span class="nav-text">字符串的格式化输出1:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E6%A0%BC%E5%BC%8F%E5%8C%96%E8%BE%93%E5%87%BA2-format-%E6%9C%89%E5%BA%8F%E5%92%8C%E6%97%A0%E5%BA%8F"><span class="nav-number">1.2.</span> <span class="nav-text">字符串的格式化输出2:.format 有序和无序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#python%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95"><span class="nav-number">1.3.</span> <span class="nav-text">python字符串的常用方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B-%E5%88%97%E8%A1%A8-list"><span class="nav-number">2.</span> <span class="nav-text">数据类型_列表_list</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E7%A9%BA%E5%88%97%E8%A1%A8"><span class="nav-number">2.1.</span> <span class="nav-text">1.空列表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%88%97%E8%A1%A8%E9%87%8C%E9%9D%A2%E7%9A%84%E6%95%B0%E6%8D%AE%E7%94%A8%E9%80%97%E5%8F%B7%E9%9A%94%E5%BC%80%EF%BC%8C%E6%95%B0%E6%8D%AE%E5%8F%AF%E4%BB%A5%E6%98%AF%E4%BB%BB%E6%84%8F%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="nav-number">2.2.</span> <span class="nav-text">2.列表里面的数据用逗号隔开，数据可以是任意数据类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E5%88%97%E8%A1%A8%E7%9A%84%E6%93%8D%E4%BD%9C%EF%BC%9A%E5%A2%9E%E5%88%A0%E6%94%B9%E6%9F%A5"><span class="nav-number">2.3.</span> <span class="nav-text">3.列表的操作：增删改查</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%96%E5%80%BC%E5%81%B6%E6%95%B0%E4%BD%8D%E7%9A%84%E5%85%83%E7%B4%A0"><span class="nav-number">2.3.1.</span> <span class="nav-text">取值偶数位的元素</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%97%E8%A1%A8%E8%BF%9B%E8%A1%8C%E5%80%92%E5%8F%99%E8%BE%93%E5%87%BA"><span class="nav-number">2.3.2.</span> <span class="nav-text">列表进行倒叙输出</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1%EF%BC%9A%E5%A2%9E%E5%8A%A0%E5%85%83%E7%B4%A0"><span class="nav-number">2.3.3.</span> <span class="nav-text">3.1：增加元素</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2%EF%BC%9A%E5%88%A0%E9%99%A4%E5%85%83%E7%B4%A0"><span class="nav-number">2.3.4.</span> <span class="nav-text">3.2：删除元素</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-3%EF%BC%9A%E4%BF%AE%E6%94%B9%E5%85%83%E7%B4%A0%EF%BC%8C%E4%BF%AE%E6%94%B9%E5%8E%9F%E6%9C%89%E7%9A%84%E5%80%BC%EF%BC%8C%E8%B5%8B%E5%80%BC%E7%9A%84%E6%96%B9%E5%BC%8F-%E5%88%97%E8%A1%A8%E5%90%8D-%E7%B4%A2%E5%BC%95%E5%80%BC-%E6%96%B0%E5%80%BC"><span class="nav-number">2.3.5.</span> <span class="nav-text">3.3：修改元素，修改原有的值，赋值的方式 列表名[索引值]&#x3D;新值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-4%EF%BC%9A%E6%9F%A5%EF%BC%9A%E6%A0%B9%E6%8D%AE%E7%B4%A2%E5%BC%95%E5%80%BC%E5%8F%96%E5%80%BC%EF%BC%8C%E5%88%87%E7%89%87"><span class="nav-number">2.3.6.</span> <span class="nav-text">3.4：查：根据索引值取值，切片</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B-%E5%85%83%E7%A5%96-tuple"><span class="nav-number">2.4.</span> <span class="nav-text">3.数据类型_元祖_tuple</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%B4%A2%E5%BC%95%EF%BC%8C%E7%B4%A2%E5%BC%95%E5%8F%96%E5%80%BC%EF%BC%8C%E5%88%87%E7%89%87%E5%90%8C%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E6%96%B9%E6%B3%95"><span class="nav-number">2.4.1.</span> <span class="nav-text">索引，索引取值，切片同字符串的方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%83%E7%A5%96%E7%9A%84%E7%89%B9%E6%80%A7%EF%BC%9A%E6%9C%89%E5%BA%8F%E4%B8%8D%E5%8F%AF%E5%8F%98"><span class="nav-number">2.4.2.</span> <span class="nav-text">元祖的特性：有序不可变</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%83%E7%A5%96%E7%9A%84%E5%88%87%E7%89%87%EF%BC%9A%E5%85%83%E7%A5%96%E5%90%8D-start-end-step"><span class="nav-number">2.4.3.</span> <span class="nav-text">元祖的切片：元祖名[start:end:step]</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%83%E7%A5%96%E8%BF%9B%E8%A1%8C%E5%80%92%E5%8F%99%E8%BE%93%E5%87%BA"><span class="nav-number">2.4.4.</span> <span class="nav-text">元祖进行倒叙输出</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95%EF%BC%9A"><span class="nav-number">2.4.5.</span> <span class="nav-text">常用方法：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B-%E5%AD%97%E5%85%B8-dict"><span class="nav-number">2.5.</span> <span class="nav-text">4.数据类型_字典_dict</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-1%E7%A9%BA%E5%AD%97%E5%85%B8"><span class="nav-number">2.5.1.</span> <span class="nav-text">4.1空字典</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2-%E5%AE%9A%E4%B9%89%E4%B8%80%E4%B8%AA%E5%AD%97%E5%85%B8-key-value"><span class="nav-number">2.5.2.</span> <span class="nav-text">4.2:定义一个字典 key:value</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-3%EF%BC%9A%E6%97%A0%E5%BA%8F"><span class="nav-number">2.5.3.</span> <span class="nav-text">4.3：无序</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-4%EF%BC%9A%E5%8F%96%E5%80%BC%EF%BC%8C%E6%A0%B9%E6%8D%AEkey%E5%8F%96%E5%80%BC%EF%BC%8C%E5%AD%97%E5%85%B8%E5%90%8D-key"><span class="nav-number">2.5.4.</span> <span class="nav-text">4.4：取值，根据key取值，字典名[key]</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-5%EF%BC%9Akey%E5%BF%85%E9%A1%BB%E6%98%AF%E5%94%AF%E4%B8%80%E7%9A%84%E4%B8%8D%E9%87%8D%E5%A4%8D%E7%9A%84%EF%BC%8C%E5%A6%82%E6%9E%9C%E5%87%BA%E7%8E%B0%E9%87%8D%E5%A4%8D%E7%9A%84%EF%BC%8C%E5%88%99%E5%90%8E%E9%9D%A2%E7%9A%84%E5%80%BC%E4%BC%9A%E6%8A%8A%E5%89%8D%E9%9D%A2%E7%9A%84%E5%80%BC%E8%A6%86%E7%9B%96%E6%8E%89"><span class="nav-number">2.5.5.</span> <span class="nav-text">4.5：key必须是唯一的不重复的，如果出现重复的，则后面的值会把前面的值覆盖掉</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-6%EF%BC%9A%E5%AD%97%E5%85%B8%E7%9A%84%E6%93%8D%E4%BD%9C%EF%BC%8C%E5%A2%9E%EF%BC%8C%E5%88%A0%EF%BC%8C%E6%94%B9%EF%BC%8C%E6%9F%A5%E8%AF%A2"><span class="nav-number">2.5.6.</span> <span class="nav-text">4.6：字典的操作，增，删，改，查询</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#keys-%E4%BB%A5%E5%88%97%E8%A1%A8%E8%BF%94%E5%9B%9E%E4%B8%80%E4%B8%AA%E5%AD%97%E5%85%B8%E6%89%80%E6%9C%89%E7%9A%84%E9%94%AE"><span class="nav-number">2.5.7.</span> <span class="nav-text">keys():以列表返回一个字典所有的键</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#values-%EF%BC%9A%E4%BB%A5%E5%88%97%E8%A1%A8%E8%BF%94%E5%9B%9E%E4%B8%80%E4%B8%AA%E5%AD%97%E5%85%B8%E6%89%80%E6%9C%89%E7%9A%84%E5%80%BC"><span class="nav-number">2.5.8.</span> <span class="nav-text">values()：以列表返回一个字典所有的值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#pop-key-%EF%BC%9A%E5%88%A0%E9%99%A4%E6%8C%87%E5%AE%9Akey%E7%9A%84%E5%AD%97%E5%85%B8%E5%80%BC%EF%BC%8C%E4%BC%9A%E8%BF%94%E5%9B%9E%E8%A2%AB%E5%88%A0%E9%99%A4%E7%9A%84%E8%BF%99%E4%B8%AA%E5%80%BC"><span class="nav-number">2.5.9.</span> <span class="nav-text">pop(key)：删除指定key的字典值，会返回被删除的这个值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#del-%E5%AD%97%E5%85%B8%E5%90%8D-key-%E5%88%A0%E9%99%A4%E6%8C%87%E5%AE%9Akey%E7%9A%84%E5%AD%97%E5%85%B8%E5%80%BC"><span class="nav-number">2.5.10.</span> <span class="nav-text">del 字典名[key]:删除指定key的字典值</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-python%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">2.6.</span> <span class="nav-text">5.python运算符</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#5-1%EF%BC%9A%E7%AE%97%E6%9C%AF%E8%BF%90%E7%AE%97%E7%AC%A6%EF%BC%9A-%EF%BC%8C-%EF%BC%8C"><span class="nav-number">2.6.1.</span> <span class="nav-text">5.1：算术运算符：+，-，*, &#x2F;, %</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%B5%8B%E5%80%BC%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">2.6.2.</span> <span class="nav-text">赋值运算符 &#x3D; +&#x3D; -&#x3D;</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-if%E5%88%A4%E6%96%AD"><span class="nav-number">2.7.</span> <span class="nav-text">6.if判断</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
