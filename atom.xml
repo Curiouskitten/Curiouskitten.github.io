@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2023-03-30T09:04:36.187Z</updated>
+  <updated>2023-07-14T09:09:30.275Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Reading together:python测试之道</title>
+    <link href="http://example.com/2023/04/16/ReadingTogether_python%E6%B5%8B%E8%AF%95%E4%B9%8B%E9%81%93/"/>
+    <id>http://example.com/2023/04/16/ReadingTogether_python%E6%B5%8B%E8%AF%95%E4%B9%8B%E9%81%93/</id>
+    <published>2023-04-15T16:44:09.000Z</published>
+    <updated>2023-07-14T09:09:30.275Z</updated>
+    
+    <content type="html"><![CDATA[<p>一起啃书，虽然软件行业各项技术的更新迭代非常快，但是该学的基础还是得学，该啃的书还是得啃。<br>地基不打好，万丈高楼就容易倒塌。<br>文章不会百分百叙述书中的内容，算是自己学习总结<br><img src="book_cover.jpg" alt="book_cover"></p><h2 id="简述测试基础"><a href="#简述测试基础" class="headerlink" title="简述测试基础"></a>简述测试基础</h2><pre><code>测试(人员)的几个阶段：入门---&gt;工程师---&gt;专家---&gt;总监</code></pre><h3 id="入门阶："><a href="#入门阶：" class="headerlink" title="入门阶："></a>入门阶：</h3><pre><code>人人都是测试工程师，入门阶段的测试人员不需要掌握过多的计算机基础技术，只需要像用户一样对系统做各种操作，如果出现不符合预期的结果，则被认为是系统存在的bug。这就是功能测试。也是黑盒测试：只关注外部结构，不考虑内部逻辑结构，主要针对软件界面和软件功能进行测试。入门阶的测试人员除了需要理解功能测试的基本概念之外，还需要掌握亮点：1. 及早介入测试的重要性</code></pre><p><img src="book_cover.jpg" alt="book_cover"><br>    随着项目一个阶段一个阶段的延伸，越到后期修复bug的代价越大。<br>    从需求分析阶段进入就是最好的时间点。这也是为什么大公司大都要求测试人员在一个版本周期中遵照这样的流程和工作内容：<br><img src="testprocess.jpeg" alt="testprocess"></p><pre><code>2. 测试活动贯穿整个软件生命周期</code></pre><p><img src="testprocess.jpeg" alt="testprocess"></p><pre><code>3. 测试流程测试项目流程图</code></pre><p><img src="projectprocess.jpg" alt="projectprocess"><br>    整个项目涉及的文档如下：<br>    - 测试计划文档<br>    - 测试需求文档<br>    - 测试用例文档</p><pre><code>4. 测试执行阶段</code></pre><p><img src="testExecution.jpg" alt="testExecution"><br>    bug管理流程图：<br><img src="BugManagement.jpg" alt="BugManagement"></p><h3 id="工程师阶"><a href="#工程师阶" class="headerlink" title="工程师阶"></a>工程师阶</h3><pre><code>知其然已经无法满足当今的测试人员，还要知其所以然。所以测试人员不仅仅要关注系统外部结构，还得了解系统内部的逻辑结构，需要把系统拆分成膜快，模块拆成单元进行更细致的测试。进行模块级别的拆分后，再把各种部件归纳组合，尽可能多地去遍历测试点，以保证系统的可靠性和稳定性。可以将测试类型和方法从三个维度进行划分。</code></pre><h4 id="按项目开发阶段来分"><a href="#按项目开发阶段来分" class="headerlink" title="按项目开发阶段来分"></a>按项目开发阶段来分</h4><pre><code>1. 单元测试2. 集成测试3. 系统测试4. 验收测试</code></pre><h4 id="按测试执行的类型来分"><a href="#按测试执行的类型来分" class="headerlink" title="按测试执行的类型来分"></a>按测试执行的类型来分</h4><pre><code>1. 功能测试2. 自动化测试3. 性能测试4. 安全性测试</code></pre><h4 id="按测试技术的不同来分"><a href="#按测试技术的不同来分" class="headerlink" title="按测试技术的不同来分"></a>按测试技术的不同来分</h4><pre><code>1. 黑盒测试2. 白盒测试3. 灰盒测试</code></pre><h2 id="python环境准备-python基础"><a href="#python环境准备-python基础" class="headerlink" title="python环境准备+python基础"></a>python环境准备+python基础</h2><p>这个类目暂时不打算在这里做详细的赘述，参考blog中python基础语法</p><h2 id="接口测试基础"><a href="#接口测试基础" class="headerlink" title="接口测试基础"></a>接口测试基础</h2><h2 id="模拟网络请求"><a href="#模拟网络请求" class="headerlink" title="模拟网络请求"></a>模拟网络请求</h2><h2 id="接口测试"><a href="#接口测试" class="headerlink" title="接口测试"></a>接口测试</h2><h2 id="UnitTest测试框架"><a href="#UnitTest测试框架" class="headerlink" title="UnitTest测试框架"></a>UnitTest测试框架</h2><h2 id="接口自动化测试"><a href="#接口自动化测试" class="headerlink" title="接口自动化测试"></a>接口自动化测试</h2><h2 id="接口自动化测试实战"><a href="#接口自动化测试实战" class="headerlink" title="接口自动化测试实战"></a>接口自动化测试实战</h2><h2 id="接口并发测试"><a href="#接口并发测试" class="headerlink" title="接口并发测试"></a>接口并发测试</h2><h2 id="接口并发测试实战"><a href="#接口并发测试实战" class="headerlink" title="接口并发测试实战"></a>接口并发测试实战</h2><h2 id="Jenkins持续集成"><a href="#Jenkins持续集成" class="headerlink" title="Jenkins持续集成"></a>Jenkins持续集成</h2><h2 id="Python的其他用途"><a href="#Python的其他用途" class="headerlink" title="Python的其他用途"></a>Python的其他用途</h2>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;一起啃书，虽然软件行业各项技术的更新迭代非常快，但是该学的基础还是得学，该啃的书还是得啃。&lt;br&gt;地基不打好，万丈高楼就容易倒塌。&lt;br&gt;文章不会百分百叙述书中的内容，算是自己学习总结&lt;br&gt;&lt;img src=&quot;book_cover.jpg&quot; alt=&quot;book_cover</summary>
+      
+    
+    
+    
+    
+    <category term="软件测试" scheme="http://example.com/tags/%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95/"/>
+    
+  </entry>
   
   <entry>
     <title>DDoS技术简述</title>
