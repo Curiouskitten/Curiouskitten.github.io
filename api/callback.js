@@ -1,7 +1,7 @@
 export default async function handler(req, res) {
   const { code } = req.query;
-  const client_id = process.env.OAUTH_CLIENT_ID;
-  const client_secret = process.env.OAUTH_CLIENT_SECRET;
+  const client_id = process.env.GITHUB_CLIENT_ID;
+  const client_secret = process.env.GITHUB_CLIENT_SECRET;
 
   try {
     const response = await fetch('https://github.com/login/oauth/access_token', {
@@ -16,7 +16,7 @@ export default async function handler(req, res) {
         code,
       }),
     });
-    
+
     const data = await response.json();
     const token = data.access_token;
 
