@@ -2,7 +2,8 @@ backend:
   name: github
   repo: Curiouskitten/Curiouskitten.github.io
   branch: main
-  base_url: https://YOUR_VERCEL_DOMAIN.vercel.app # Please replace this with your actual Vercel domain later
+  # base_url: https://YOUR_VERCEL_DOMAIN.vercel.app # Please replace this with your actual Vercel domain later
+  base_url: https://curiouskitten-github-io.vercel.app
   auth_endpoint: api/auth
 
 media_folder: "source/images" # Media files will be stored in the repo under source/images
