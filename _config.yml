@@ -105,5 +105,5 @@ theme: Butterfly
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
   type: git
-  repository: git@github.com:Curiouskitten/Curiouskitten.github.io.git
-  branch: main
+  repository: https://github.com/Curiouskitten/Curiouskitten.github.io.git
+  branch: gh-pages
