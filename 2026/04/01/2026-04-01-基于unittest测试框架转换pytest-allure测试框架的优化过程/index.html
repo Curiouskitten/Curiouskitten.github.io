@@ -1,0 +1,199 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>基于Unittest测试框架转换pytest+allure测试框架的优化过程 | 柒仔的学习栈</title><meta name="keywords" content="API测试"><meta name="author" content="柒仔"><meta name="copyright" content="柒仔"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Pytest的一个重要功能，夹具（装饰器）。 夹具可以被类使用，也可以被方法调用，也可以定义作用范围。 定义一个夹具: 12345678910111213# 前置：已经下载好pytest和allure（是个web框架，可以单独下载，mac可以直接brew install allure）# pip install pytest# pip install allure-pytest# 是否成功下载al">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基于Unittest测试框架转换pytest+allure测试框架的优化过程">
+<meta property="og:url" content="http://example.com/2026/04/01/2026-04-01-%E5%9F%BA%E4%BA%8Eunittest%E6%B5%8B%E8%AF%95%E6%A1%86%E6%9E%B6%E8%BD%AC%E6%8D%A2pytest-allure%E6%B5%8B%E8%AF%95%E6%A1%86%E6%9E%B6%E7%9A%84%E4%BC%98%E5%8C%96%E8%BF%87%E7%A8%8B/index.html">
+<meta property="og:site_name" content="柒仔的学习栈">
+<meta property="og:description" content="Pytest的一个重要功能，夹具（装饰器）。 夹具可以被类使用，也可以被方法调用，也可以定义作用范围。 定义一个夹具: 12345678910111213# 前置：已经下载好pytest和allure（是个web框架，可以单独下载，mac可以直接brew install allure）# pip install pytest# pip install allure-pytest# 是否成功下载al">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg">
+<meta property="article:published_time" content="2026-04-01T01:54:00.000Z">
+<meta property="article:modified_time" content="2026-04-01T10:49:44.509Z">
+<meta property="article:author" content="柒仔">
+<meta property="article:tag" content="API测试">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2026/04/01/2026-04-01-%E5%9F%BA%E4%BA%8Eunittest%E6%B5%8B%E8%AF%95%E6%A1%86%E6%9E%B6%E8%BD%AC%E6%8D%A2pytest-allure%E6%B5%8B%E8%AF%95%E6%A1%86%E6%9E%B6%E7%9A%84%E4%BC%98%E5%8C%96%E8%BF%87%E7%A8%8B/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '基于Unittest测试框架转换pytest+allure测试框架的优化过程',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2026-04-01 18:49:44'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="柒仔的学习栈" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">14</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">12</div></a></div></div></div><hr/></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">柒仔的学习栈</a></span><div id="menus"><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">基于Unittest测试框架转换pytest+allure测试框架的优化过程</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-04-01T01:54:00.000Z" title="发表于 2026-04-01 09:54:00">2026-04-01</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-04-01T10:49:44.509Z" title="更新于 2026-04-01 18:49:44">2026-04-01</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="基于Unittest测试框架转换pytest+allure测试框架的优化过程"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>Pytest的一个重要功能，夹具（装饰器）。</p>
+<p>夹具可以被类使用，也可以被方法调用，也可以定义作用范围。</p>
+<p>定义一个夹具:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"># 前置：已经下载好pytest和allure（是个web框架，可以单独下载，mac可以直接brew install allure）</span><br><span class="line"># pip install pytest</span><br><span class="line"># pip install allure-pytest</span><br><span class="line"># 是否成功下载allure，终端输入：allure --version</span><br><span class="line"># 成功返回版本号则说明allure环境已具备</span><br><span class="line"></span><br><span class="line">import pytest</span><br><span class="line"></span><br><span class="line">@pytest.fixture</span><br><span class="line">def fixture_func(): # 不能随便接受参数</span><br><span class="line">	print(‘》〉》〉》〉》我是个pytest.fixture风格的前置条件’)</span><br><span class="line">	yield ‘我是一个yield的值’  # 相当于夹具的值</span><br><span class="line">	print(‘我是一个pytest.fixture风格的后置条件《〈《〈《‘)</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>夹具的调用</li>
+</ol>
+<p>通过装饰器的方式调用，适用于类&amp;方法;被类调用时，相当于unittest中的setup+teardown，在每个方法前后执行。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">import pytest</span><br><span class="line"></span><br><span class="line"># 函数调用夹具</span><br><span class="line">@pytest.mark.usefixtures(‘fixture_function’)</span><br><span class="line">def test_function():</span><br><span class="line">	print(‘这是一个测试函数’)</span><br><span class="line"></span><br><span class="line"># 类调用夹具</span><br><span class="line">@pytest.mark.usefixtures(‘fixture_function’)</span><br><span class="line">TestSomething():</span><br><span class="line">	def test_fun_one():</span><br><span class="line">		print(‘1’)</span><br><span class="line">	</span><br><span class="line">	def test_fun_two():</span><br><span class="line">		print(‘2’)</span><br></pre></td></tr></table></figure>
+
+<p>作为参数被调用,相比较作为装饰器被调用，这种可以打印出夹具中yield的值；这种同样适用于类下的方法调用</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">import pytest</span><br><span class="line"></span><br><span class="line">def two_one(fixture_func):</span><br><span class="line">	print（fixture_func）</span><br><span class="line">	print(‘’我是test_one)</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>定义夹具的作用范围，夹具参数scope，默认function，即方法/函数范围，使用默认值时可以不要()，比如定义一个类级别的夹具，则@pytest.fixture(scope=‘class’)，这种类型的夹具被普通函数调用也不会报错，也会正常执行，但效果如同方法级。建议是什么用什么，别混用。包括模块级别。</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">import pytest</span><br><span class="line"></span><br><span class="line">@pytest.fixture(scope=&#x27;&#x27;)	</span><br><span class="line">def fixture_func(): </span><br><span class="line">	print(‘》〉》〉》〉》我是个pytest.fixture风格的前置条件’)</span><br><span class="line">	yield ‘我是一个yield的值’</span><br><span class="line">	print(‘我是一个pytest.fixture风格的后置条件《〈《〈《‘)</span><br></pre></td></tr></table></figure>
+
+<p>夹具参数autouse，默认=False，当定义为True时，即使是一个函数调用类级别的夹具，且此函数被放在了当前模块最后一行，也会正常的执行类级别夹具，即模块级别的前置后置</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">import pytest</span><br><span class="line"></span><br><span class="line">@pytest.fixture(scope=&#x27;class&#x27;, autouse=True)	</span><br><span class="line">def fixture_func(): </span><br><span class="line">	print(‘》〉》〉》〉》我是个pytest.fixture风格的前置条件’)</span><br><span class="line">	yield ‘我是一个yield的值’</span><br><span class="line">	print(‘我是一个pytest.fixture风格的后置条件《〈《〈《‘)</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>夹具可以被集中定义在conftest.py文件中</li>
+</ol>
+<p>文件名 conftest.py 是一个硬性约定的特殊名称。简单直接的回答是：如果你希望 pytest 能够“自动”发现并跨文件共享夹具（Fixtures），文件名必须是 conftest.py，不能改名。</p>
+<p>此特征就可以代替原来的继承Unittest.Testcase，即类继承这一步。</p>
+<p>Ps. 定义一个类级别，模块级别，包级别的夹具，autouse可以=True，但是方法级别的不建议使用，会导致所有测试函数都执行夹具；</p>
+<p>夹具的检索规则，从被调用的函数起递归由里往外查询conftest.py中定义的夹具</p>
+<ol start="5">
+<li>一个函数调用多个夹具，同级别夹具按照先后顺序调用，但不同级别，则从范围大的开始执行。</li>
+</ol>
+<p><img src="/images/%E5%A4%B9%E5%85%B7%E6%89%A7%E8%A1%8C.png"></p>
+<ol start="6">
+<li><p>夹具支持继承，但只被继承的夹具范围要&gt;=继承夹具，即类级别的夹具是不能继承函数范围的夹具，但反之有效</p>
+</li>
+<li><p>夹具的参数化</p>
+</li>
+</ol>
+<p>放两个例子，自己意会</p>
+<p>针对此案例进行参数化执行：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">import pytest</span><br><span class="line"></span><br><span class="line">data = [</span><br><span class="line">  &#123;&#x27;num&#x27;: 1,&#x27;except&#x27;: 1&#125;,</span><br><span class="line">  &#123;&#x27;num&#x27;: -1,&#x27;except&#x27;: 1&#125;,</span><br><span class="line">  &#123;&#x27;num&#x27;: 0,&#x27;except&#x27;: 0&#125;</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line">def test_abs_1():</span><br><span class="line">  case = data[0]</span><br><span class="line">  assert case[&#x27;except&#x27;] == abs(case[&#x27;num&#x27;])</span><br><span class="line"></span><br><span class="line">def test_abs_2():</span><br><span class="line">  case = data[1]</span><br><span class="line">  assert case[&#x27;except&#x27;] == abs(case[&#x27;num&#x27;])</span><br><span class="line">  </span><br><span class="line">def test_abs_3():</span><br><span class="line">  case = data[2]</span><br><span class="line">  assert case[&#x27;except&#x27;] == abs(case[&#x27;num&#x27;])</span><br></pre></td></tr></table></figure>
+
+<p>夹具表达1:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">import pytest</span><br><span class="line"></span><br><span class="line">data = [</span><br><span class="line">  &#123;&#x27;num&#x27;: 1,&#x27;except&#x27;: 1&#125;,</span><br><span class="line">  &#123;&#x27;num&#x27;: -1,&#x27;except&#x27;: 1&#125;,</span><br><span class="line">  &#123;&#x27;num&#x27;: 0,&#x27;except&#x27;: 0&#125;</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line">@pytest.mark.paramtrize(&#x27;case&#x27;, data)</span><br><span class="line">def test_abs(case):</span><br><span class="line">  assert case[&#x27;except&#x27;] == abs(case[&#x27;num&#x27;])</span><br></pre></td></tr></table></figure>
+
+<p>夹具表达2:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">import pytest</span><br><span class="line"></span><br><span class="line">data = [</span><br><span class="line">  [1, 1],</span><br><span class="line">  [-1, 1],</span><br><span class="line">  [0, 0]</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line">@pytest.mark.paramtrize(&#x27;num,except&#x27;, data) # 注意前面参数中间用逗号分隔但是不能有空格</span><br><span class="line">def test_abs(num, except):</span><br><span class="line">  assert abs[&#x27;except&#x27;] == abs(case[&#x27;num&#x27;])</span><br></pre></td></tr></table></figure>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">柒仔</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2026/04/01/2026-04-01-%E5%9F%BA%E4%BA%8Eunittest%E6%B5%8B%E8%AF%95%E6%A1%86%E6%9E%B6%E8%BD%AC%E6%8D%A2pytest-allure%E6%B5%8B%E8%AF%95%E6%A1%86%E6%9E%B6%E7%9A%84%E4%BC%98%E5%8C%96%E8%BF%87%E7%A8%8B/">http://example.com/2026/04/01/2026-04-01-%E5%9F%BA%E4%BA%8Eunittest%E6%B5%8B%E8%AF%95%E6%A1%86%E6%9E%B6%E8%BD%AC%E6%8D%A2pytest-allure%E6%B5%8B%E8%AF%95%E6%A1%86%E6%9E%B6%E7%9A%84%E4%BC%98%E5%8C%96%E8%BF%87%E7%A8%8B/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">柒仔的学习栈</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/API%E6%B5%8B%E8%AF%95/">API测试</a></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2026/03/31/hello-world/"><img class="next-cover" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Hello World</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">柒仔</div><div class="author-info__description">用技术倾注对生活的热爱</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">14</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">12</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">blog内容为个人整理汇总笔记，不定时整理更新，评论功能暂不开启</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2026/04/01/2026-04-01-%E5%9F%BA%E4%BA%8Eunittest%E6%B5%8B%E8%AF%95%E6%A1%86%E6%9E%B6%E8%BD%AC%E6%8D%A2pytest-allure%E6%B5%8B%E8%AF%95%E6%A1%86%E6%9E%B6%E7%9A%84%E4%BC%98%E5%8C%96%E8%BF%87%E7%A8%8B/" title="基于Unittest测试框架转换pytest+allure测试框架的优化过程"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="基于Unittest测试框架转换pytest+allure测试框架的优化过程"/></a><div class="content"><a class="title" href="/2026/04/01/2026-04-01-%E5%9F%BA%E4%BA%8Eunittest%E6%B5%8B%E8%AF%95%E6%A1%86%E6%9E%B6%E8%BD%AC%E6%8D%A2pytest-allure%E6%B5%8B%E8%AF%95%E6%A1%86%E6%9E%B6%E7%9A%84%E4%BC%98%E5%8C%96%E8%BF%87%E7%A8%8B/" title="基于Unittest测试框架转换pytest+allure测试框架的优化过程">基于Unittest测试框架转换pytest+allure测试框架的优化过程</a><time datetime="2026-04-01T01:54:00.000Z" title="发表于 2026-04-01 09:54:00">2026-04-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/03/31/hello-world/" title="Hello World"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Hello World"/></a><div class="content"><a class="title" href="/2026/03/31/hello-world/" title="Hello World">Hello World</a><time datetime="2026-03-31T20:25:02.000Z" title="发表于 2026-04-01 04:25:02">2026-04-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/04/15/%E4%B8%80%E4%BA%9B%E4%B8%AA%E4%BA%BA%E7%BB%83%E4%B9%A0/" title="一些个人练习"><img src="/img/python3.jpeg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="一些个人练习"/></a><div class="content"><a class="title" href="/2024/04/15/%E4%B8%80%E4%BA%9B%E4%B8%AA%E4%BA%BA%E7%BB%83%E4%B9%A0/" title="一些个人练习">一些个人练习</a><time datetime="2024-04-15T03:28:05.000Z" title="发表于 2024-04-15 11:28:05">2024-04-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/04/15/ReadingTogether_python%E6%B5%8B%E8%AF%95%E4%B9%8B%E9%81%93/" title="Reading together:python测试之道"><img src="/img/girl_cp.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Reading together:python测试之道"/></a><div class="content"><a class="title" href="/2023/04/15/ReadingTogether_python%E6%B5%8B%E8%AF%95%E4%B9%8B%E9%81%93/" title="Reading together:python测试之道">Reading together:python测试之道</a><time datetime="2023-04-15T16:44:09.000Z" title="发表于 2023-04-16 00:44:09">2023-04-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/03/29/DDoS%E6%8A%80%E6%9C%AF%E7%AE%80%E8%BF%B0/" title="DDoS技术简述"><img src="/img/girl_cp.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="DDoS技术简述"/></a><div class="content"><a class="title" href="/2023/03/29/DDoS%E6%8A%80%E6%9C%AF%E7%AE%80%E8%BF%B0/" title="DDoS技术简述">DDoS技术简述</a><time datetime="2023-03-29T15:22:48.000Z" title="发表于 2023-03-29 23:22:48">2023-03-29</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2026 By 柒仔</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">这只是一个私人笔记blog</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
