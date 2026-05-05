@@ -93,16 +93,41 @@ Ps. 定义一个类级别，模块级别，包级别的夹具，autouse可以=Tr
 
 夹具的检索规则，从被调用的函数起递归由里往外查询conftest.py中定义的夹具
 
-
 5. 一个函数调用多个夹具，同级别夹具按照先后顺序调用，但不同级别，则从范围大的开始执行。
 
 ![](/images/夹具执行.png)
 
+6. 夹具支持继承，但只被继承的夹具范围要>=继承夹具，即类级别的夹具是不能继承函数范围的夹具，但反之有效，以下以我封装的app自动化的conftest.py的部分内容为例：
+
+   ```
+   import config
+   from appium import webdriver
+   from appium.options.android import UiAutomator2Options
+   from page_objects.app.login_page import LoginPage
+   from page_objects.app.nologin_home_page import NoLoginHomePage
 
 
+   @pytest.fixture(scope='class')
+   def driver():
+       desired_cap = config.DES_CAPS
+       options = UiAutomator2Options().load_capabilities(desired_cap)
+       with webdriver.Remote(config.APPIUM_SERVER_HOST, options=options) as session:
+           yield session
 
-6. 夹具支持继承，但只被继承的夹具范围要>=继承夹具，即类级别的夹具是不能继承函数范围的夹具，但反之有效
-
+   @pytest.fixture(scope='class')
+   def login_driver(driver): # 继承上方参数名为driver的夹具
+       # 判断是否存在协议窗口
+       nhp = NoLoginHomePage(driver)
+       if nhp.judge_Popup():
+           nhp.confirm_agreement()
+           nhp.enter_login_page()
+       else:
+           nhp.enter_login_page()
+       # 登录
+       lp = LoginPage(driver)
+       lp.login(account=config.TestAccount['account'],password=config.TestAccount['passwd'])
+       yield driver
+   ```
 7. 夹具的参数化
 
 放两个例子，自己意会
