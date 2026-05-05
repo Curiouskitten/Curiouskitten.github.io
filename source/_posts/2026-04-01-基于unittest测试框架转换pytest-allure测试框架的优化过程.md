@@ -1,9 +1,9 @@
 ---
 layout: post
-title: 基于Unittest测试框架转换pytest+allure测试框架的优化过程
+title: pytest-夹具介绍
 date: 2026-04-01T17:54:00.000+08:00
 tags:
-  - API测试
+  - pytest的夹具功能
 ---
 Pytest的一个重要功能，夹具（装饰器）。
 
