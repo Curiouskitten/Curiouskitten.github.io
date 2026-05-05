@@ -1,27 +1,27 @@
 ---
-title: python接口自动化框架
+title: python接口自动化框架（Unittest+ddt）
 date: 2022-10-23 15:20:54
 tags: python 接口自动化
 cover: /img/girl_cp.jpg
 ---
-
-基于Unittest的接口自动化测试框架，可直接套用，根据实际业务做内容修改
-
+基于Unittest + ddt的接口自动化测试框架，可直接套用，根据实际业务做内容修改
 
 ## 目录结构
-![catalogue_of_frame](catalogue.jpg)
 
+![catalogue_of_frame](catalogue.jpg)
 
 ## 各模块介绍
 
 ### Http请求能力封装-http_request.py
+
 引用三方库requests
 若本地没有：
-``` bash
+
+```bash
 pip install requests
 ```
 
-``` bash
+```bash
 import requests
 
 
@@ -38,15 +38,17 @@ def send_http_requests(url, method, **kwargs):
     res = getattr(requests, method)(url, **kwargs)
     return res
 ```
+
 知识点：getattr()--获取类方法
 如上代码，获取requests模块下，method方法，跟上对应的参数
 当然也可以用最基本的方法使用if的条件语句，判断是何种请求方法走不同分支来处理
 
 ### 日志处理：日志器的封装-log_handler.py
+
 引用python自带库logging
 具体逻辑：创建一个日志器-->设置日志的打印等级-->创建一个日志处理器-->格式化日志-->将格式化后的日志添加到日志器上
 
-``` bash
+```bash
 import logging
 
 
@@ -87,17 +89,21 @@ def get_logger(name, filename, mode='a', encoding="utf-8", fmt=None, debug=False
     logger.addHandler(console_handler)
     return logger
 ```
+
 日志的处理登记做成了两类，最详细的console类--debug；相对清晰的文件类--info
 补充：logging模块中的日志等级
 ![logging模块日志等级](loglevel.jpg)
 
 ### Excel文件处理器--excel_handler.py
+
 引用三方库：openpyxl
 下载指令：
-``` bash
+
+```bash
 pip install openpyxl
 ```
-``` bash
+
+```bash
 from openpyxl import load_workbook
 from pprint import pprint
 
@@ -135,6 +141,7 @@ def get_exceldata(path, sheetname):
         data.append(temp)
     return data
 ```
+
 在整个自动化运行的过程中，几乎不会对excel文件本身数据做修改，因此此处仅用到获取数据的方法load_workbook；定义一个读取数据的方法即可
 Attention：excel文件模版一定要保持干净！！不要存在非必要的空格行or列，上述方法通过获取最大行和最大列来获取目标数据的
 我使用的excel的格式：
@@ -142,12 +149,13 @@ Attention：excel文件模版一定要保持干净！！不要存在非必要的
 则对应上述代码：sheetname=demo
 在指定范围的for循环中遵循左开右闭。也就是右边的数实际取值是n-1，所以此处column&row都+1
 最终以列表中嵌套字典的方式，获取所有表中的数据，例：
-[{“id”:1,””title”:用例A”…,},{…}]
-
+\[{“id”:1,””title”:用例A”…,},{…}]
 
 ### 测试报告生成-report_handler.py
+
 用例批量执行后需要一个测试报告直观的查看当前测试套执行结果,现在有很多3方测试模板，比如可以直接下载的BeautifulReport
-``` bash
+
+```bash
 from datetime import datetime
 from BeautifulReport import BeautifulReport
 from library.HTMLTestRunnerNew import HTMLTestRunner
@@ -182,10 +190,11 @@ def report(ts, filename, report_dir, theme="theme_default", title=None, descript
             runner.run(ts)
 ```
 
-
 ### 配置项封装-config_handler.py/settings.py
+
 为了减少不同环境对框架复用性的影响，封装一个动态配置处理器，常见的配置项管理文件类型有：.ini, .yaml, .yml, .cfg, .conf;但为了更加方便的调用和获取数据，我直接使用python文件进行了配置管理；针对ini&yaml类型的数据不做过多的赘述：
-``` bash
+
+```bash
 import yaml
 from configparser import ConfigParser
 
@@ -254,8 +263,10 @@ class Config:
         else:
             return self.__parse_ini()
 ```
+
 .ini文件格式
-``` bash
+
+```bash
 [log]
 name = "rest_register"
 
@@ -263,8 +274,10 @@ name = "rest_register"
 
 [report]
 ```
+
 .yaml文件格式
-``` bash
+
+```bash
 log:
   name: dpword_test_log
   filename: log/testlog.log
@@ -277,7 +290,8 @@ report:
 ```
 
 settings.py
-``` bash
+
+```bash
 import pymysql
 import os
 from datetime import datetime
@@ -345,10 +359,12 @@ DB_CONFIG_LEMON = {
     "cursorclass": pymysql.cursors.DictCursor  # 设置游标类型，返回不同类型数据
 }
 ```
+
 直接使用python文件管理动态参数的好处就是在执行过程中，python无需再去翻译成自己理解的逻辑再去执行，可以通过字典将不同类型的参数归类，省去了翻译这一步骤。也不容易出现奇怪的非必要的问题。
 Attention：settings中的参数key均采用大写字母
 
 ### 数据库处理器-db_handler.py
+
 当前数据库的类型非常多，诸如关系型—mysql，非关系型—mongodb，redis等等，此处介绍的是最最最基础也最最最常用的mysql的处理
 引用三方库：pymysql
 本地没有直接pip：pip install pymysql
@@ -362,7 +378,8 @@ Attention：settings中的参数key均采用大写字母
 ![way_of_pymysql](db_handler.jpg)
 
 如果仅仅通过定义函数的方法，每一次请求mysql都需要如此来一套，创建连接-执行语句-再关闭连接，一旦数据量大起来对mysql的压力会十分大，且浪费时间和资源；为了解决这个问题，通过封装一个数据库处理类，定义一个初始化函数，创建一个连接，可被其他方法共享连接，详细如下：
-``` bash
+
+```bash
 import pymysql
 import settings
 
@@ -424,10 +441,12 @@ class DB:
                 return False
 ```
 
-###	模块初始化-__init__.py
+### 模块初始化-**init**.py
+
 在整个框架的使用中，有些类和方法被频繁的调用，如果每个模块都要重新引用一次，随着模块的增多，代码免不了冗余和繁琐，对被测系统的性能也会带来非必要的压力，例如频繁的调用数据库处理器，即使封装数据库处理模块的时候已经简化了连接数，但是还不够。
-__init__.py
-``` bash
+**init**.py
+
+```bash
 from .log_handler import get_logger
 import settings
 # from .config_handler import get_config
@@ -438,12 +457,13 @@ from .db_handler import DB
 logger = get_logger(**settings.LOG_CONFIG)
 # 实现单项目共享一个连接，提高资源利用率
 db_client = DB(settings.DB_CONFIG_LEMON)
-
 ```
 
 ### 随机数生成
+
 在自动化测试的过程中，随机参数是必不可少的，可以根据一定的规则生成需要的随机数。为此我单独创建了一个模块random_sample.py来统一生成各种随机数
-``` bash
+
+```bash
 import random
 import string
 import time
@@ -481,12 +501,13 @@ def get_note(times=50, sleep=5):
         random_note = random.choice(musical_note)
         print(random_note)
         time.sleep(sleep)
-
 ```
 
 ### 测试数据处理
+
 随机参数已经有单独的模块生成，那么下一步就是用生成的参数动态替换掉每次从excel中获取的参数槽位，因此又增加了一个处理此问题的模块test_data_handler.py
-``` bash
+
+```bash
 import random
 from common import db_client
 import re
@@ -541,8 +562,8 @@ def replace_by_re(json_str, object):
     for arg in args:
         json_str = json_str.replace("#{}#".format(arg), str(getattr(object, arg)))
     return json_str
-
 ```
+
 这个模块除了替换槽位的方法是通用的，其他方法均需要根据实际的业务场景来定义不同的方法。那么这里讲解一下replace_by_re()这个方法。
 这里重点引用的方法re – 正则匹配
 此处不会详细介绍正则表达式。仅对用到的正则匹配方法做介绍。
@@ -550,12 +571,13 @@ re.findall
 在字符串中找到正则表达式所匹配的所有子串，并返回一个列表，如果有多个匹配模式，则返回元组列表，如果没有找到匹配的，则返回空列表。
 注意： match 和 search 是匹配一次 findall 匹配所有。
 语法格式为：
-findall(string[, pos[, endpos]])
+findall(string\[, pos[, endpos]])
 参数：
 •	string : 待匹配的字符串。
 •	pos : 可选参数，指定字符串的起始位置，默认为 0。
 •	endpos : 可选参数，指定字符串的结束位置，默认为字符串的长度。
-``` bash
+
+```bash
 import re
 
 pattern = re.compile(r'\d+')   # 查找数字
@@ -564,36 +586,40 @@ result2 = pattern.findall('run88oob123google456', 0, 18)
 
 print(result1)
 print(result2)
-
 ```
+
 输出结果：
-``` bash
+
+```bash
 ['123', '456']
 ['88', '12']
-
 ```
 
 此处用到的正则表达式模式：
-1)	利用括号分组
-2)	用问号实现可选匹配
-3)	用星号匹配零次或多次
-4)	用加号匹配一次或多次
-5)	通配字符
+
+1. 利用括号分组
+2. 用问号实现可选匹配
+3. 用星号匹配零次或多次
+4. 用加号匹配一次或多次
+5. 通配字符
 
 在正则表达式中，.(英文句号)为通配符，它匹配除了换行之外的所有字符串
 Attention：. 仅匹配一个字符
 eg.
-``` bash
+
+```bash
 atRegex = re.compile(r’.at’)
 atRegex.findall(“The cat in the hat sat on the flat mat.”)
 ```
-Result: [“cat”, “hat”, “sat”, “lat”, “mat”]
+
+Result: \[“cat”, “hat”, “sat”, “lat”, “mat”]
 结果中flat仅匹配到了lat
 
 （）为分组符号
 一个括号内的字符为一组，可以使用group()匹配对象方法，从一个分组中获取匹配的文本。
 Eg.
-``` bash
+
+```bash
 phoneNumRegex = re.compile(r“(\d\d\d)-(\d\d\d-\d\d\d)”)
 mo = phoneNumRegex.search(“My number is 415-555-4242.”)
 mo.group(1)
@@ -605,9 +631,11 @@ mo.group(0)
 mo.group()
 # 415-555-4242
 ```
+
 ？表明它前面的分组在这个模式中是可选的，可以理解为：匹配这个问号之前的分组0次后者1次
 *意味着匹配0次或多次，即星号之前的分组，可以在文本中出现任意次，它可以不存在，或者一次又一次的重复
-``` bash
+
+```bash
 batRegex = re.compile(r”Bat(wo)*man”)
 mo1 = batRegex.search(“The Adventures of Batman”)
 mo1.group()
@@ -619,30 +647,34 @@ mo3 = batRegex.search(“The Adventures of Batwowowowoman”)
 mo3 = mo3.group()
 # result: “Batwowowowoman”
 ```
+
 +意味着匹配一次或多次，相比较星号不要求分组出现在匹配的字符串中，加号前的分组必须至少出现一次。
 多个匹配模式，返回元祖列表：
-``` bash
+
+```bash
 import re
 
 result = re.findall(r'(\w+)=(\d+)', 'set width=20 and height=10')
 print(result)
-
 ```
+
 结果：
-[('width', '20'),('height', '10')]
+\[('width', '20'),('height', '10')]
 综合以上知识点，来看框架代码中的“#(.+?)#”
-``` bash
+
+```bash
 	def replace_by_re(json_str, object):
     args = re.findall("#(.+?)#", json_str)
     for arg in args:
         json_str = json_str.replace("#{}#".format(arg), str(getattr(object, arg)))
     return json_str
 ```
+
 被匹配的字符串为json_str
 在json_str中匹配的字符串格式为#xxx#，考虑到json_str中可能存在多个这样格式的字符串，所以用井号将字符分组，分组内的字符串无特殊的要求所以使用通配符匹配分组内的所有字符串。但是有一个要求，井号内字符不能为空，所以使用+号保证预匹配的字符串必须完整的存在一次
 
-
 ### 前置用例
+
 业务流
 在做接口自动化时，往往需要先测通核心业务流，再进行单接口测试
 接口测试业务流设计
@@ -651,14 +683,15 @@ print(result)
 3）先测主流程，后测分流程
 4）只测正例
 
-
 ### 基于Unittest框架的测试执行模块的封装
+
 涉及三方库：ddt
 ----data driver test—数据驱动测试，只有测试流程完全一致的时候可以使用ddt
 目的：测试数据与测试用例代码分离，通过外部测试数据动态生成用例
 下载执行：pip install ddt
 下载好后为了更好的适配本地的脚本，修改了一小部分代码(进入ddt模块找这段):
-``` bash
+
+```bash
 def _get_test_data_docstring(func, value):
     """Returns a docstring based on the following resolution strategy:
     1. Passed value is not a "primitive" and has a docstring, then use it.
@@ -670,15 +703,16 @@ def _get_test_data_docstring(func, value):
         return value.__doc__
     else:
         return None
-
 ```
+
 效果就是将html报告中的用例描述，取用excel中填入的title的值
 
 1．	相同业务模块为一个py文件
 ![testcases_modle](testcases_modle.jpg)
 
-2．	为了简化和解耦，减少后续模块代码量，可以编写一个基类如base_case.py，逻辑与common目录下的__init__.py一样；在基类中定义通用的流程和代码逻辑，例：
-``` bash
+2．	为了简化和解耦，减少后续模块代码量，可以编写一个基类如base_case.py，逻辑与common目录下的**init**.py一样；在基类中定义通用的流程和代码逻辑，例：
+
+```bash
 import unittest
 import json
 import warnings
@@ -826,7 +860,6 @@ class BaseTest(unittest.TestCase):
                 raise e
             else:
                 self.logger.info("数据库断言成功！")
-
 ```
 
 上述代码中，遵循流程：
@@ -835,7 +868,8 @@ class BaseTest(unittest.TestCase):
 针对方法的setup&teardown
 测试流程的定义：
 测试步骤->响应状态码断言->响应数据断言->数据库断言
-``` bash
+
+```bash
     def checkout(self, case):
         # 测试数据处理-绑定对象属性，便于下面的测试流程处理函数
         self.case = case
@@ -850,15 +884,16 @@ class BaseTest(unittest.TestCase):
         self.assert_json_response()
         # 数据库断言
         self.assert_db_true()
-
 ```
+
 此处的checkout方法其实是对上述步骤的一个汇总调用，在TestBase基类中定义每个步骤的处理方法，再定义一个汇总的调用方法，那么后续拥有相同测试步骤的模块用例就可以直接调用checkout(case)，这一种方法来执行整个用例了。
 以下为每个测试步骤的方法定义：
 self.pre_test_data()—预制数据处理
 必然存在的步骤：
 1）	参数替换；
 2）	将excel文件中请求体转换成python对象，方便直接引用进接口请求。
-``` bash
+
+```bash
 def pre_test_data(self):
     """
     预制数据处理
@@ -880,7 +915,8 @@ def pre_test_data(self):
 
 self.step() # 测试步骤
 发送http请求，当然除了http请求之外还有诸如websocket请求，根据具体项目进行封装处理
-``` bash
+
+```bash
 def step(self):
     """
     测试步骤
@@ -902,7 +938,8 @@ def step(self):
 
 self.assert_status_code() # 响应状态码断言
 针对上述http请求结果与excel中提取的预期结果做比较
-``` bash
+
+```bash
 def assert_status_code(self):
     """
     响应状态码断言
@@ -915,12 +952,12 @@ def assert_status_code(self):
         raise e
     else:
         self.logger.info("响应状态码断言成功！")
-
 ```
 
 self.assert_json_response() ----响应结果断言，这个非固定，切记：所有的框架的代码都是不固定的，一定是根据对应的业务场景做变更的，这里就直接提供一个简单粗暴的方式
 提取excel中对应的响应体与上述http请求结果做比较
-``` bash
+
+```bash
 def assert_json_response(self):
     """
     响应结果断言--根据情况这里只校验了部分参数，根据实际项改写
@@ -940,12 +977,12 @@ def assert_json_response(self):
         raise e
     else:
         self.logger.info("用例：【{}】响应结果断言成功！".format(self.case["title"]))
-
 ```
 
 self.assert_db_true() ----数据库校验，原理同上述响应断言，提取excel文件中的sql语句，连接并执行数据库语句，此处事例为mysql可以根据具体的项目架构需求再封装诸如：redis连接，mogodb连接，甚至是es查询
 源码如下：
-``` bash
+
+```bash
 def assert_db_true(self):
     """
     断言数据库存在数据
@@ -962,23 +999,24 @@ def assert_db_true(self):
             raise e
         else:
             self.logger.info("数据库断言成功！")
-
 ```
 
 至此，整理一下抽取基类的思路：数据参数化，相同步骤统一执行
-1.	数据参数化：将所有的非定值的数据作为槽位。使用随机数或按照一定规律生成的参数对号入座，槽位表示的方式很多，具体看如何定义，可以是#randint#也可以是{randint}；最后将替换完槽位的数据统一进行格式化，由字符串（str）转换为可被python直接用于请求的python对象。
-2.	相同的步骤执行：不难发现，所有接口测试都绕不开：填写参数->发送请求->获取响应->状态码&响应体的校验
-当然有的也存在数据库的校验
-那么在第一步数据参数化的时候，在针对某一模块也可以简单的理解为对一个sheet页中所有的请求参数都做了统一的替换和格式化
-那么我只需要在Unittest和ddt的帮助下，一条一条的执行用例即可
-3.	前置&后置条件：非必要，基本上基类中只需要标注xxx开始执行，xxx执行结束即可，因为接口自动化的最终目的是整个业务场景的验证，所以必然存在不同模块的前置和后置执行内容不一致的情况-需要针对不同的模块做改写。所以基类无需做过多封装
-类级别—setUpClass & tearDownClass
-方法级别---setUp & teardown
-4.  @classmethod--用于定义类方法的装饰器。作用：在不创建实例的情况下调用类属性。
-在 Python 中，通常在方法的第一个参数中使用 self 来引用类实例本身。但是，当使用 @classmethod 装饰器时，第一个参数不是 self，而是 cls，用于引用类本身。
+
+1. 数据参数化：将所有的非定值的数据作为槽位。使用随机数或按照一定规律生成的参数对号入座，槽位表示的方式很多，具体看如何定义，可以是#randint#也可以是{randint}；最后将替换完槽位的数据统一进行格式化，由字符串（str）转换为可被python直接用于请求的python对象。
+2. 相同的步骤执行：不难发现，所有接口测试都绕不开：填写参数->发送请求->获取响应->状态码&响应体的校验
+   当然有的也存在数据库的校验
+   那么在第一步数据参数化的时候，在针对某一模块也可以简单的理解为对一个sheet页中所有的请求参数都做了统一的替换和格式化
+   那么我只需要在Unittest和ddt的帮助下，一条一条的执行用例即可
+3. 前置&后置条件：非必要，基本上基类中只需要标注xxx开始执行，xxx执行结束即可，因为接口自动化的最终目的是整个业务场景的验证，所以必然存在不同模块的前置和后置执行内容不一致的情况-需要针对不同的模块做改写。所以基类无需做过多封装
+   类级别—setUpClass & tearDownClass
+   方法级别---setUp & teardown
+4. @classmethod--用于定义类方法的装饰器。作用：在不创建实例的情况下调用类属性。
+   在 Python 中，通常在方法的第一个参数中使用 self 来引用类实例本身。但是，当使用 @classmethod 装饰器时，第一个参数不是 self，而是 cls，用于引用类本身。
 
 测试基类本身就是针对Unittest的属性和方法改写，而项目开发则是具体到每个功能测试模块，再引入基类再改写的过程
-``` bash
+
+```bash
  @data(*cases)
     def test_audit(self, case):
         self.logger.info("用例【{}】开始测试>>>>>>>>>>>".format(case["title"]))
@@ -1019,14 +1057,16 @@ def assert_db_true(self):
             else:
                 self.logger.info("数据库断言成功！")
             self.assertTrue(db_res)
-
 ```
+
 上述代码直接可以写为：
-``` bash
+
+```bash
 @data(*cases)
     def test_audit(self, case):
         self.checkout(case)
 ```
+
 有了基类的帮忙，原本繁琐的步骤，3行代码引用即可解决，工具化
 
 Attention!!!----用于占位的槽位名称一定要与预置的参数命名一直，如excel文件中定义的槽位名称为#user_id#，则在预置用例中需要将参数命名为user_id的类属性。
@@ -1035,8 +1075,10 @@ Attention!!!----用于占位的槽位名称一定要与预置的参数命名一�
 至此，框架的基础搭建就结束了，后续需要根据具体的业务增加相关的处理模块。
 
 ### 执行文件
+
 编写一个执行文件，收集测试套，并让他按照既定的流程执行使用excel归档的用例，将最终的执行结果汇总成html的测试报告
-``` bash
+
+```bash
 import unittest
 from common.report_handler import report
 import settings
@@ -1045,5 +1087,3 @@ if __name__ == '__main__':
     testsuite = unittest.TestLoader().discover('testcases', pattern='test*')
     report(testsuite, **settings.REPORT_CONFIG)
 ```
-
-
